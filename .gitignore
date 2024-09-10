@@ -7,5 +7,5 @@ data/processed/
 # Ignore distribution directories
 /dist/
 /build/
-/*.egg-info/
+/complete_collision_recorder.egg-info/
 /.ipynb_checkpoints/
