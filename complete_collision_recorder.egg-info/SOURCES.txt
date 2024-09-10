@@ -1,0 +1,8 @@
+README.md
+setup.py
+complete_collision_recorder.egg-info/PKG-INFO
+complete_collision_recorder.egg-info/SOURCES.txt
+complete_collision_recorder.egg-info/dependency_links.txt
+complete_collision_recorder.egg-info/entry_points.txt
+complete_collision_recorder.egg-info/requires.txt
+complete_collision_recorder.egg-info/top_level.txt

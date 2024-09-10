@@ -1,3 +1,17 @@
+Metadata-Version: 2.1
+Name: complete-collision-recorder
+Version: 0.1.0
+Summary: Creates narratives of collisions from unstructured sources
+Home-page: https://github.com/beardedDan/complete_collision_recorder
+Author: Daniel Zielinski
+Author-email: hip_dog_fur@runbox.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+
 # Complete Collision Recorder
 
 Roughly half of all traffic collisions are not documented in official crash
@@ -34,7 +48,6 @@ complete_collision_recorder/
 │
 ├── src/                    # Source code (Python scripts and modules)
 │   ├── __init__.py         # Marks this folder as a package
-│   ├── main.py             # Main entry point
 │   ├── utils.py            # Utility functions for general use
 │   └── complete_collision.py # Project-specific logic and functions
 │
