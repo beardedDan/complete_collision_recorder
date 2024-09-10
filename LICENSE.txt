@@ -1,28 +1,29 @@
-Creative Commons Zero (CC0 1.0) with Attribution, Revocation of Permission, and Recommended Citation
+Creative Commons Attribution 4.0 (CC BY 4.0) with Attribution, and Recommended Citation
 
-This is a public domain dedication with additional restrictions. You are free to use this content for any purpose, provided you give appropriate credit to the original author(s) in the specified manner. However, the original author reserves the right to withdraw permission to use this content at any time. Additionally, the use of the content by AI scrapers or for machine learning purposes is restricted.
-Public Domain Dedication
+This work was created to fulfill individual graduate degree requirements of Pennsylvania State University (PSU). No research funding or financial sponsorship was provided by PSU or any external source to aid the completion of this work. No special agreement was made with the university or any external sponsor to commission this work. The author independently retains the license of all code, designs, and creations of this project and releases it under the Creative Commons Attribution 4.0 International License. 
 
-The person who associated a work with this deed has dedicated the work to the public domain by waiving all rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
+You are free to:
 
-You can copy, modify, distribute, and perform the work, even for commercial purposes, all without asking permission, subject to the following terms and restrictions.
-You may:
-
-    Copy, modify, distribute, or use the content for any purpose, including commercial use.
-
+    Copy, modify, distribute, or use the content for any purpose, including commercial use, provided you give appropriate credit to the original author(s).
+    
 Requirements:
 
-    Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use of the work.
+    Attribution: You must give appropriate credit, provide a link to this license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use of the work.
+    
         Recommended Citation (APA Style):
 
             Zielinski, D. (2024). Complete Collision Recorder. Retrieved from https://github.com/beardedDan/complete_collision_recorder.
 
-Restrictions:
-
-    Revocation of Permission: The original author(s) reserves the right to withdraw permission for the use of this content at any time, for any reason. Upon receiving notice of revocation, you must immediately cease using, distributing, or modifying the content. This restriction does not retroactively apply to any distributed or modified content prior to the revocation notice.
 
 No Warranties:
 
 This work is provided "as is," without any warranties of any kind, express or implied, including, but not limited to, warranties of merchantability, fitness for a particular purpose, or non-infringement. The author(s) will not be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from or in connection with the use of the work.
 
-For more information about this public domain dedication, visit Creative Commons CC0 1.0. https://creativecommons.org/publicdomain/zero/1.0/legalcode.en
+For more information about this license, visit Creative Commons CC BY 4.0:
+
+https://creativecommons.org/licenses/by/4.0/deed.en
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+or refer to Penn State Intellectual Property Policies:
+
+https://policy.psu.edu/sections/intellectual-property-policies#C
