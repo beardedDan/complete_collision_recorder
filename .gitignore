@@ -1,5 +1,6 @@
 # Ignore data
 data/*
+data/callsforservice.csv
 data/raw/
 data/processed/
 
