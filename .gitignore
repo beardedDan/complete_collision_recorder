@@ -1,3 +1,8 @@
-# Ignore raw data
+# Ignore data
 data/raw/
 data/processed/
+
+# Ignore distribution directories
+/dist/
+/build/
+/*.egg-info/
