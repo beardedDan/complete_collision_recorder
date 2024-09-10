@@ -5,7 +5,10 @@ from setuptools import setup, find_packages
 def parse_requirements(filename):
     """Read and return dependencies from the specified requirements file."""
     with open(filename, "r") as f:
-        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
+        return [
+            line.strip() 
+            for line in f 
+            if line.strip() and not line.startswith("#")]
 
 
 # Parse dependencies from requirements.txt
