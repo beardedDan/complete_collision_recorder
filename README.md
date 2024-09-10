@@ -1,11 +1,12 @@
 # Complete Collision Recorder
 
-Roughly half of all traffic collisions are documented in official crash reports.
-This issue has been understood and researched for more than 50 years but it is
-still recommended practice to base traffic engineering decision on official data
-only. This project attempts to use AI to extract information from alternative
-unstructured data sources, such as police dispatch reports, and operationalize
-information from those reports into a usable format.
+Roughly half of all traffic collisions are not documented in official crash
+reports. This issue has been understood and researched for more than 50 years
+but it is still recommended practice to base traffic engineering decision on
+official data only. This project attempts to use AI to extract information from
+alternative unstructured data sources, such as police dispatch reports, and
+operationalize information from those reports into a usable structured format
+and to create natural language descriptions of the collisions.
 
 ## Project Description
 A two-step AI process using an NLP categorization task to extract:
