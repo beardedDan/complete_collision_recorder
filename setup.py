@@ -1,14 +1,16 @@
 from setuptools import setup, find_packages
 
+
 # Helper function to read the contents of requirements.txt
 def parse_requirements(filename):
     """Read and return dependencies from the specified requirements file."""
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         return [line.strip() for line in f if line.strip() and not line.startswith("#")]
-    
+
+
 # Parse dependencies from requirements.txt
-requirements = parse_requirements('requirements.txt')
-dev_requirements = parse_requirements('dev-requirements.txt')
+requirements = parse_requirements("requirements.txt")
+dev_requirements = parse_requirements("dev-requirements.txt")
 
 setup(
     name="complete_collision_recorder",
@@ -21,7 +23,9 @@ setup(
     url="https://github.com/beardedDan/complete_collision_recorder",
     packages=find_packages(),
     install_requires=requirements,
-    extras_require={"dev": dev_requirements,},
+    extras_require={
+        "dev": dev_requirements,
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -33,4 +37,10 @@ setup(
             "collision-recorder=src.main:main",
         ],
     },
+    keywords=[
+        "NLP categorization",
+        "NLP summarization",
+        "Generative AI",
+        "Car Accident",
+    ],
 )

@@ -5,5 +5,6 @@ def main():
     """
     print("Collision Recorder CLI is running...")
 
+
 if __name__ == "__main__":
     main()
