@@ -2,13 +2,14 @@
 
 Roughly half of all traffic collisions are not documented in official crash
 reports. This is a problem because traffic engineers do not have a complete
-dataset from which to create road designs. Under-reporting has been understood 
-and researched for more than 50 years but it is still recommended practice for 
-traffic engineers to onlyl use official data only. This project attempts to 
-use AI to extract information from alternative unstructured data sources, 
-such as police dispatch reports, and operationalize information from those 
-reports into a usable structured format and to create natural language 
-descriptions of the collisions.
+safety profile of a roadway and are only able to consider fully documented 
+collisions. This results in a serious survivorship bias and has been 
+researched for more than 50 years but it is still recommended practice for 
+traffic engineers to only use official data when performing safety studies. 
+This project attempts to use AI to extract information from alternative 
+unstructured data sources, such as police dispatch reports, and 
+operationalize information from those reports into a usable structured 
+format and to create natural language descriptions of the collisions.
 
 ## Project Description
 Taking inputs from official crash reports and police reports, a two-step 
