@@ -1,4 +1,4 @@
-Creative Commons Zero (CC0 1.0) with Attribution, AI Scraper Restriction, Revocation of Permission, and Recommended Citation
+Creative Commons Zero (CC0 1.0) with Attribution, Revocation of Permission, and Recommended Citation
 
 This is a public domain dedication with additional restrictions. You are free to use this content for any purpose, provided you give appropriate credit to the original author(s) in the specified manner. However, the original author reserves the right to withdraw permission to use this content at any time. Additionally, the use of the content by AI scrapers or for machine learning purposes is restricted.
 Public Domain Dedication
@@ -14,12 +14,10 @@ Requirements:
 
     Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use of the work.
         Recommended Citation (APA Style):
-            
+
             Zielinski, D. (2024). Complete Collision Recorder. Retrieved from https://github.com/beardedDan/complete_collision_recorder.
 
 Restrictions:
-
-    AI Scrapers and Machine Learning Algorithms: You may not use, index, or scrape this content for the purpose of training, improving, or otherwise using it in artificial intelligence or machine learning systems without explicit written permission from the author(s).
 
     Revocation of Permission: The original author(s) reserves the right to withdraw permission for the use of this content at any time, for any reason. Upon receiving notice of revocation, you must immediately cease using, distributing, or modifying the content. This restriction does not retroactively apply to any distributed or modified content prior to the revocation notice.
 
