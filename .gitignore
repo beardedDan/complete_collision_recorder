@@ -1,8 +1,8 @@
 # Ignore data
-data/*
-data/callsforservice.csv
-data/raw/
-data/processed/
+/data/*
+/data/callsforservice.csv
+/data/raw/
+/data/processed/
 
 # Ignore distribution directories
 /dist/
