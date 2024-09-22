@@ -50,6 +50,4 @@ complete_collision_recorder/
 │
 ├── README.md               # Project overview and documentation
 ├── LICENSE.txt             # Licensing and usage permissions
-├── dev_requirements.txt    # Python dependencies for development only
-├── requirements.txt        # Python dependencies
-└── setup.py                # Installation script
+└── pyproject.toml          # Python project build info

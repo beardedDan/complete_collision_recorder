@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "complete_collision_recorder"
+version = "0.1.0"
+description = "Creates narratives of collisions from unstructured sources"
+readme = "README.md"
+readme-content-type = "text/markdown"
+requires-python = ">=3.6"
+license = { text = "Creative Commons Attribution 4.0 (CC BY SA 4.0)" }
+authors = [
+    { name = "Daniel Zielinski", email = "hip_dog_fur@runbox.com" }
+]
+homepage = "https://github.com/beardedDan/complete_collision_recorder"
+keywords = ["NLP categorization", "NLP summarization", "Generative AI", "Car Accident"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Creative Commons Attribution 4.0 (CC BY SA 4.0)",
+    "Operating System :: OS Independent"
+]
+
+[project.dependencies]
+numpy = ">=1.22"
+pandas = ">=2.2.2"
+datasets = ">=2.14.5"
+torch = ">=2.0.1"
+Transformers = ">=4.34.1"
+nltk = ">=3.8.1"
+pdf2image = ">=1.16.3"
+pytesseract = ">=0.3.10"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.2",
+    "black>=24.8",
+    "flake8>=7.1.1"
+]
+
+[project.scripts]
+collision-recorder = "src.main:main"
+
+[tool.black]
+line-length = 79
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+force-exclude = '''
+/LICENSE\.txt$|/README\.md$|/pyproject\.toml$
+'''
+
+
+[tool.flake8]
+max-line-length = 79
+exclude = '''
+.git,
+.venv,
+build,
+dist,
+migrations,
+*.txt,
+*.md,
+*.toml,
+*.yaml,
+LICENSE\.txt,
+README\.md,
+pyproject\.toml
+'''
