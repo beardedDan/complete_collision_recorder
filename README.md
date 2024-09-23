@@ -24,6 +24,11 @@ process using an NLP categorization task to extract:
 And then provide raw text and the extracted crash characteristics as inputs 
 into a text generator to create natural language descriptions of collisions.
 
+## System Design and Functional/Non-Functional Requirements
+
+System pipeline and requirements are documented here: [System Design and Functional/Non-Functional Requirements](./docs/system_design_and_functional_nonfunctional_requirements.md)
+
+
 ## Project Directory Structure
 
 ```plaintext
