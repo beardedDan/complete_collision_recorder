@@ -9,3 +9,5 @@
 /build/
 /complete_collision_recorder.egg-info/
 /.ipynb_checkpoints/
+/notebooks/.ipynb_checkpoints/
+/.venv/

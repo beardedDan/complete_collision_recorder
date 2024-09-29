@@ -2,10 +2,10 @@
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[project]
+[complete_collision_recorder]
 name = "complete_collision_recorder"
-version = "0.1.0"
-description = "Creates narratives of collisions from unstructured sources"
+version = "0.2.0"
+description = "Creates narratives of bike and pedestrian collisions from unstructured sources"
 readme = "README.md"
 readme-content-type = "text/markdown"
 requires-python = ">=3.6"
@@ -14,15 +14,15 @@ authors = [
     { name = "Daniel Zielinski", email = "hip_dog_fur@runbox.com" }
 ]
 homepage = "https://github.com/beardedDan/complete_collision_recorder"
-keywords = ["NLP categorization", "NLP summarization", "Generative AI", "Car Accident"]
+keywords = ["NLP categorization", "NLP summarization", "Generative AI", "Car Accident", "Bicycle", "Bike", "Collision"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: Creative Commons Attribution 4.0 (CC BY SA 4.0)",
     "Operating System :: OS Independent"
 ]
 
-[project.dependencies]
-numpy = ">=1.22"
+[complete_collision_recorder.dependencies]
+numpy = ">=2.1.0"
 pandas = ">=2.2.2"
 datasets = ">=2.14.5"
 torch = ">=2.0.1"
@@ -31,14 +31,15 @@ nltk = ">=3.8.1"
 pdf2image = ">=1.16.3"
 pytesseract = ">=0.3.10"
 
-[project.optional-dependencies]
+[complete_collision_recorder.optional-dependencies]
 dev = [
     "pytest>=8.3.2",
     "black>=24.8",
-    "flake8>=7.1.1"
+    "flake8>=7.1.1",
+    "ipykernel"
 ]
 
-[project.scripts]
+[complete_collision_recorder.scripts]
 collision-recorder = "src.main:main"
 
 [tool.black]
@@ -59,6 +60,8 @@ exclude = '''
     | buck-out
     | build
     | dist
+    | docs
+    | logs
 
   )/
   | foo.py           # also separately exclude a file named foo.py in
@@ -77,6 +80,8 @@ exclude = '''
 .venv,
 build,
 dist,
+docs,
+logs,
 migrations,
 *.txt,
 *.md,

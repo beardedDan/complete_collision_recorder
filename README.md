@@ -26,7 +26,9 @@ into a text generator to create natural language descriptions of collisions.
 
 ## System Design and Functional/Non-Functional Requirements
 
-System pipeline and requirements are documented here: [System Design and Functional/Non-Functional Requirements](./docs/system_design_and_functional_nonfunctional_requirements.md)
+System pipeline and requirements are documented here: [System Design and Functional/Non-Functional Requirements](./docs/system_design_and_functional_nonfunctional_requirements.md
+system_design_and functional_nonfunctional_requirements.md
+)
 
 
 ## Project Directory Structure
