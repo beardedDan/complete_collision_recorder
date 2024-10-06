@@ -30,6 +30,9 @@ Transformers = ">=4.34.1"
 nltk = ">=3.8.1"
 pdf2image = ">=1.16.3"
 pytesseract = ">=0.3.10"
+scikit_learn = ">=1.5.2"
+matplotlib = ">=3.9.2"
+seaborn = ">=0.13.2"
 
 [complete_collision_recorder.optional-dependencies]
 dev = [
