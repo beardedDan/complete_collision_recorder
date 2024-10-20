@@ -17,8 +17,19 @@ import pytesseract
 import nltk
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
-from imblearn.over_sampling import SMOTE, SVMSMOTE, KMeansSMOTE, ADASYN, BorderlineSMOTE, RandomOverSampler
-from sklearn.preprocessing import StandardScaler, FunctionTransformer, MaxAbsScaler
+from imblearn.over_sampling import (
+    SMOTE,
+    SVMSMOTE,
+    KMeansSMOTE,
+    ADASYN,
+    BorderlineSMOTE,
+    RandomOverSampler,
+)
+from sklearn.preprocessing import (
+    StandardScaler,
+    FunctionTransformer,
+    MaxAbsScaler,
+)
 from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.cluster import KMeans
 
@@ -26,42 +37,55 @@ from sklearn.cluster import KMeans
 from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import cross_val_score, train_test_split, StratifiedKFold, GridSearchCV
+from sklearn.model_selection import (
+    cross_val_score,
+    train_test_split,
+    StratifiedKFold,
+    GridSearchCV,
+)
 from imblearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
 # Warning Suppression
 import warnings
-warnings.filterwarnings("ignore", message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None")
+
+warnings.filterwarnings(
+    "ignore",
+    message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None",
+)
 
 
-class PdfTextExtraction: 
+class PdfTextExtraction:
     """
     Corresponds to Functional Requirements 01, 02, and 03 in System Design.
     See details in the README.md or in the System Design document:
     /docs/system_design_and_functional_nonfunctional_requirements.md
     """
-        
+
     def __init__(self):
-        
+
         root_directory = os.path.abspath(os.path.join(os.getcwd(), "../."))
         log_directory = os.path.join(root_directory, "logs")
-        os.makedirs(log_directory, exist_ok=True)        
+        os.makedirs(log_directory, exist_ok=True)
         log_file_path = os.path.join(log_directory, "pdf_text_extraction.log")
-        
+
         # Reference: https://realpython.com/python-logging/
-        self.logger = logging.getLogger('PdfTextExtraction')
+        self.logger = logging.getLogger("PdfTextExtraction")
         self.logger.setLevel(logging.INFO)
-        file_handler = logging.FileHandler(log_file_path, mode="a", encoding="utf-8")
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
+        file_handler = logging.FileHandler(
+            log_file_path, mode="a", encoding="utf-8"
+        )
+        formatter = logging.Formatter(
+            "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+        )
         file_handler.setFormatter(formatter)
         if not self.logger.handlers:
             self.logger.addHandler(file_handler)
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
-        
+
     def process_cad_pdfs_in_folder(
         self, folder_path, output_base_folder, dpi=300
     ):
@@ -78,8 +102,8 @@ class PdfTextExtraction:
 
         Returns:
             None. Saves output files to subfolders within output_base_folder
-        """        
-        
+        """
+
         self.logger.info(
             f"Starting PDF processing of CAD files in folder: {folder_path}"
         )
@@ -90,35 +114,41 @@ class PdfTextExtraction:
                 pdf_path = os.path.join(folder_path, pdf_file)
                 output_folder = os.path.join(output_base_folder, cad_id)
                 os.makedirs(output_folder, exist_ok=True)
-                
+
                 self.logger.info(f"Processing CAD PDF: {pdf_file}")
 
                 try:
                     image_files = self.convert_all_page_to_image(
                         pdf_path, output_folder, dpi
                     )
-                    
+
                     if image_files:
                         extracted_text = []
                         for image_file in image_files:
-                            page_text = self.process_ocr(image_file, output_folder, cad_id)
+                            page_text = self.process_ocr(
+                                image_file, output_folder, cad_id
+                            )
                             extracted_text.append(page_text)
-                        
+
                         full_text = "\n\n".join(extracted_text)
-                        output_text_file = os.path.join(output_folder, f"{cad_id}_ocr.txt")
+                        output_text_file = os.path.join(
+                            output_folder, f"{cad_id}_ocr.txt"
+                        )
 
                         with open(output_text_file, "a") as text_file:
                             text_file.write(full_text)
-        
+
                     else:
-                        self.logger.warning(f"Could not convert from: {pdf_file}")
+                        self.logger.warning(
+                            f"Could not convert from: {pdf_file}"
+                        )
                 except Exception as e:
                     self.logger.error(f"Error processing file {pdf_file}: {e}")
-            else: 
+            else:
                 self.logger.info(f"Non-PDF file {pdf_file} found")
-                    
+
         self.logger.info(f"All files processed from {folder_path}")
-        
+
     def process_oh1_pdfs_in_folder(
         self, folder_path, output_base_folder, template_path, dpi=300
     ):
@@ -139,7 +169,7 @@ class PdfTextExtraction:
         Returns:
             None. Saves output files to subfolders within output_base_folder
         """
-        
+
         self.logger.info(
             f"Starting PDF processing of OH1 in folder: {folder_path}"
         )
@@ -147,7 +177,9 @@ class PdfTextExtraction:
         template = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
         if template is None:
             self.logger.error(f"Template image not found at {template_path}")
-            raise FileNotFoundError(f"Template image not found {template_path}")
+            raise FileNotFoundError(
+                f"Template image not found {template_path}"
+            )
         self.logger.info(f"Template loaded from {template_path}")
 
         for pdf_file in os.listdir(folder_path):
@@ -156,7 +188,7 @@ class PdfTextExtraction:
                 pdf_path = os.path.join(folder_path, pdf_file)
                 output_folder = os.path.join(output_base_folder, cad_id)
                 os.makedirs(output_folder, exist_ok=True)
-                
+
                 self.logger.info(f"Processing OH1 PDF: {pdf_file}")
 
                 try:
@@ -164,14 +196,17 @@ class PdfTextExtraction:
                         pdf_path, output_folder, dpi
                     )
                     if image_file:
-                        self.process_image(image_file, template, output_folder, cad_id)
+                        self.process_image(
+                            image_file, template, output_folder, cad_id
+                        )
                     else:
-                        self.logger.warning(f"Could not convert from: {pdf_file}")
+                        self.logger.warning(
+                            f"Could not convert from: {pdf_file}"
+                        )
                 except Exception as e:
                     self.logger.error(f"Error processing file {pdf_file}: {e}")
-                    
-        self.logger.info(f"All files processed from {folder_path}")
 
+        self.logger.info(f"All files processed from {folder_path}")
 
     def convert_all_page_to_image(self, pdf_path, output_folder, dpi=300):
         """
@@ -185,18 +220,16 @@ class PdfTextExtraction:
         Returns:
             str: A list of file paths of all saved images.
         """
-        images = convert_from_path(
-            pdf_path, dpi=dpi
-        )  # Convert all pages
-        
+        images = convert_from_path(pdf_path, dpi=dpi)  # Convert all pages
+
         image_paths = []
-        
+
         for i, image in enumerate(images):
             image_path = os.path.join(output_folder, f"page_{i+1}.png")
             image.save(image_path, "PNG")
             image_paths.append(image_path)
         return image_paths
-                                 
+
     def convert_first_page_to_image(self, pdf_path, output_folder, dpi=300):
         """
         Convert only the first page of the PDF to an image.
@@ -217,7 +250,6 @@ class PdfTextExtraction:
             images[0].save(image_path, "PNG")
             return image_path
         return None
-
 
     def process_image(self, image_path, template, output_folder, cad_id):
         """
@@ -286,14 +318,15 @@ class PdfTextExtraction:
         form = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         if form is None:
             raise FileNotFoundError(f"Form image not found at {image_path}")
-        
+
         text = pytesseract.image_to_string(form)
         text = re.sub(r"\s+", " ", text).strip().upper()
-        
-        return text
-        
 
-    def get_bounding_boxes(self, contours, min_area=100, min_width=100, min_height=50):
+        return text
+
+    def get_bounding_boxes(
+        self, contours, min_area=100, min_width=100, min_height=50
+    ):
         """
         Get bounding boxes for the contours
 
@@ -314,7 +347,6 @@ class PdfTextExtraction:
                 if w > min_width and h > min_height:
                     boxes.append((x, y, x + w, y + h))
         return boxes
-
 
     def extract_regions_and_save(
         self, template_boxes, form_boxes, form, output_folder, cad_id
@@ -352,7 +384,7 @@ class PdfTextExtraction:
                     # Extract narrative and severity information from the text
                     if "NARRATIVE" in text[:15]:
                         officer_narrative = text[10:]
-                    # Excluding this for now                    
+                    # Excluding this for now
                     # if "SEVERITY" in text[:15]:
                     #     severity = text[15:16]
                     #     severity_desc = self.interpret_severity(severity)
@@ -367,7 +399,6 @@ class PdfTextExtraction:
 
         with open(narrative_file_path, "w") as f:
             f.write(oh1_narrative)
-
 
     def interpret_severity(self, severity_code):
         """
@@ -393,8 +424,18 @@ class PreprocessGCAT:
 
     # PreprocessGCAT class is used to preprocess the data for the GCAT model
 
-    def __init__(self, df, text_column, label_column, test_size=0.2, norm = 'l2', vocabulary=None, min_df=0.05, max_df=0.9, max_features=500):
-
+    def __init__(
+        self,
+        df,
+        text_column,
+        label_column,
+        test_size=0.2,
+        norm="l2",
+        vocabulary=None,
+        min_df=0.05,
+        max_df=0.9,
+        max_features=500,
+    ):
         """
         Initiatize the class.
         Define class variables
@@ -429,29 +470,31 @@ class PreprocessGCAT:
         self.max_features = max_features
 
         self.ps = PorterStemmer()
-        self.stopWords = set(nltk.corpus.stopwords.words('english'))
-        self.charfilter = re.compile('[a-zA-Z]+')
-        self.vec = TfidfVectorizer(tokenizer=self.CCR_Tokenizer, 
-                                   norm=self.norm, 
-                                   vocabulary=self.vocabulary,
-                                   min_df=self.min_df,
-                                   max_df=self.max_df,
-                                   max_features=self.max_features)
-        
+        self.stopWords = set(nltk.corpus.stopwords.words("english"))
+        self.charfilter = re.compile("[a-zA-Z]+")
+        self.vec = TfidfVectorizer(
+            tokenizer=self.CCR_Tokenizer,
+            norm=self.norm,
+            vocabulary=self.vocabulary,
+            min_df=self.min_df,
+            max_df=self.max_df,
+            max_features=self.max_features,
+        )
 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.df[self.text_column], 
-            self.df[self.label_column], 
-            train_size=self.train_size, 
-            random_state=123
+        self.X_train, self.X_test, self.y_train, self.y_test = (
+            train_test_split(
+                self.df[self.text_column],
+                self.df[self.label_column],
+                train_size=self.train_size,
+                random_state=123,
             )
-        
+        )
+
         print("Dataset has been split into training and testing sets.")
-        
+
         print(f"Number of rows in total: {len(self.df)}")
         print(f"Number of rows in X_train: {len(self.X_train)}")
-        print(f"Number of rows in X_test: {len(self.X_test)}")        
-        
+        print(f"Number of rows in X_test: {len(self.X_test)}")
 
     def CCR_Tokenizer(self, text):
         """
@@ -466,10 +509,11 @@ class PreprocessGCAT:
 
         words = map(lambda word: word.lower(), nltk.word_tokenize(text))
         words = [word for word in words if word not in self.stopWords]
-        tokens = (list(map(lambda token: self.ps.stem(token), words)))
-        ntokens = list(filter(lambda token: self.charfilter.match(token), tokens))
+        tokens = list(map(lambda token: self.ps.stem(token), words))
+        ntokens = list(
+            filter(lambda token: self.charfilter.match(token), tokens)
+        )
         return ntokens
-
 
     def fit_and_evaluate_tfidf_vector(self):
         """
@@ -481,7 +525,6 @@ class PreprocessGCAT:
         Returns:
             Prints summary statistics of the TF-IDF vectorizer
         """
-
 
         X_tfidf = self.vec.fit_transform(self.X_train)
         X_tfidf_dense = X_tfidf.todense()
@@ -507,10 +550,9 @@ class PreprocessGCAT:
         dtm = self.vec.fit_transform(docs)
         return dtm
 
-
     def pca_analysis(self, dtm):
         """
-        Procedure to analyze the PCA of the document term matrix, plot 
+        Procedure to analyze the PCA of the document term matrix, plot
         explained variance, return the ideal number of components.
 
         Args:
@@ -521,9 +563,8 @@ class PreprocessGCAT:
             components(int): Number of components to explain 95% variance
         """
 
-
         pca_temp = PCA().fit(dtm.toarray())
-        
+
         # Calculate cumulative variance and components
         cumulative_variance = np.cumsum(pca_temp.explained_variance_ratio_)
         components = np.argmax(cumulative_variance >= 0.95) + 1
@@ -533,39 +574,39 @@ class PreprocessGCAT:
             pca = PCA(n_components=comp)
             pca.fit(dtm.toarray())
             explained_var.append(pca.explained_variance_ratio_.sum())
-        
-        print("Explained Variance: {:.2f}%".format(explained_var[-1]*100))
+
+        print("Explained Variance: {:.2f}%".format(explained_var[-1] * 100))
         print("Number of Components: ", components)
 
         # Plot explained variance by number of components
         plt.figure()
         plt.plot(range(1, components_range, 5), explained_var, "ro")
-        plt.axhline(y=0.95, color='b', linestyle='--', label='95% Variance')
-        plt.axvline(x=components, color='g', linestyle='--', label='Num Components')
+        plt.axhline(y=0.95, color="b", linestyle="--", label="95% Variance")
+        plt.axvline(
+            x=components, color="g", linestyle="--", label="Num Components"
+        )
         plt.xlabel("Number of Components")
         plt.ylabel("Proportion of Explained Variance")
-
-
 
         # Scattertlot PCA
         plt.figure()
         palette = np.array(sns.color_palette("hls", 10))
-        pca = PCA(n_components=components)  
-        pca.fit(dtm.toarray()) 
+        pca = PCA(n_components=components)
+        pca.fit(dtm.toarray())
         pca_dtm = pca.transform(dtm.toarray())
-        plt.scatter(pca_dtm[:, 0], pca_dtm[:, 1], c=palette[self.y_train.astype(int)])
+        plt.scatter(
+            pca_dtm[:, 0], pca_dtm[:, 1], c=palette[self.y_train.astype(int)]
+        )
         explained_variance = pca.explained_variance_ratio_.sum()
         plt.xlabel("Can1")
         plt.ylabel("Can2")
 
         return explained_var, components
-    
-    
 
     def evaluate_balancers(self, models, class_balancers, n_components=40):
         """
-        Procedure to quickly compare different class imbalance correction 
-        methods before performing grid search. Intended to be used for 
+        Procedure to quickly compare different class imbalance correction
+        methods before performing grid search. Intended to be used for
         exploration of class imbalance correction.
 
         Args:
@@ -577,44 +618,57 @@ class PreprocessGCAT:
             balancer_eval(pd.DataFrame): DataFrame of evaluation
         """
 
-
         models = models
         class_balancers = class_balancers
         n_components = n_components
 
-        balancer_eval = pd.DataFrame(columns=[
-            'Model', 'Balancer', 'Confusion Matrix', 
-            'Macro Avg Precision', 'Macro Avg Recall', 'Macro Avg F1'
-        ])
+        balancer_eval = pd.DataFrame(
+            columns=[
+                "Model",
+                "Balancer",
+                "Confusion Matrix",
+                "Macro Avg Precision",
+                "Macro Avg Recall",
+                "Macro Avg F1",
+            ]
+        )
 
         # Run through all combinations of models and balancers
         for balancer in class_balancers:
             for m_name, model in models:
-                pipeline = Pipeline([
-                    ('vec', self.vec), 
-                    ('class_balancer', balancer),
-                    ('pca', PCA(n_components=n_components)), 
-                    (m_name, model)
-                ])
-                
+                pipeline = Pipeline(
+                    [
+                        ("vec", self.vec),
+                        ("class_balancer", balancer),
+                        ("pca", PCA(n_components=n_components)),
+                        (m_name, model),
+                    ]
+                )
+
                 # Fit and predict
                 pipeline.fit(self.X_train, self.y_train)
                 y_pred = pipeline.predict(self.X_test)
-                
+
                 # Confusion matrix and classification report
                 conf_matrix = confusion_matrix(self.y_test, y_pred)
-                report = classification_report(self.y_test, y_pred, output_dict=True)['macro avg']
-                
-                # Append results to the DataFrame
-                new_row = pd.DataFrame({
-                    'Model': [m_name], 
-                    'Balancer': [str(balancer)], 
-                    'Confusion Matrix': [conf_matrix],
-                    'Macro Avg Precision': [report['precision']], 
-                    'Macro Avg Recall': [report['recall']], 
-                    'Macro Avg F1': [report['f1-score']]
-                })
-                new_row_rmv_na = new_row.dropna(axis=1, how='all')
-                balancer_eval = pd.concat([balancer_eval, new_row_rmv_na], ignore_index=True)
+                report = classification_report(
+                    self.y_test, y_pred, output_dict=True
+                )["macro avg"]
 
-        return balancer_eval 
+                # Append results to the DataFrame
+                new_row = pd.DataFrame(
+                    {
+                        "Model": [m_name],
+                        "Balancer": [str(balancer)],
+                        "Confusion Matrix": [conf_matrix],
+                        "Macro Avg Precision": [report["precision"]],
+                        "Macro Avg Recall": [report["recall"]],
+                        "Macro Avg F1": [report["f1-score"]],
+                    }
+                )
+                new_row_rmv_na = new_row.dropna(axis=1, how="all")
+                balancer_eval = pd.concat(
+                    [balancer_eval, new_row_rmv_na], ignore_index=True
+                )
+
+        return balancer_eval
