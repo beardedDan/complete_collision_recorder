@@ -391,10 +391,35 @@ class PdfTextExtraction:
 
 class PreprocessGCAT:
 
+    # PreprocessGCAT class is used to preprocess the data for the GCAT model
+
     def __init__(self, df, text_column, label_column, test_size=0.2, norm = 'l2', vocabulary=None, min_df=0.05, max_df=0.9, max_features=500):
+
+        """
+        Initiatize the class.
+        Define class variables
+        Define stemmer, stopwords, and character filter
+        Define TF-IDF vectorizer
+        Split the dataset into training and testing sets
+
+        Args:
+            text_column(str): Name of the column containing the text data
+            label_column(str) = Name of the column containing the label data
+            test_size(float) = Ratio of the test set
+            train_size(float) = 1 - test_size (Ratio of the training set)
+            norm(str) = Normalization method
+            vocabulary(np.array) = Predefined vocabulary for the TF-IDF vectorizer
+            min_df(float) = Minimum document frequency ratio
+            max_df(float) = Maximum document frequency ratio
+            max_features(float) = Maximum number of features returned from TF-IDF vectorizer
+
+        Returns:
+            Prints the number of rows in the training and testing sets
+        """
+
         self.df = df
         self.text_column = text_column
-        self.label_column = label_column   
+        self.label_column = label_column
         self.test_size = test_size
         self.train_size = 1 - test_size
         self.norm = norm
@@ -429,6 +454,16 @@ class PreprocessGCAT:
         
 
     def CCR_Tokenizer(self, text):
+        """
+        Stem and tokenize raw text data.
+
+        Args:
+            text(str): Raw text data to be tokenized
+
+        Returns:
+            ntokens: List of tokens produced with tokenizer
+        """
+
         words = map(lambda word: word.lower(), nltk.word_tokenize(text))
         words = [word for word in words if word not in self.stopWords]
         tokens = (list(map(lambda token: self.ps.stem(token), words)))
@@ -437,6 +472,17 @@ class PreprocessGCAT:
 
 
     def fit_and_evaluate_tfidf_vector(self):
+        """
+        Procedure to fit and evaluate the TF-IDF vectorizer
+
+        Args:
+            None
+
+        Returns:
+            Prints summary statistics of the TF-IDF vectorizer
+        """
+
+
         X_tfidf = self.vec.fit_transform(self.X_train)
         X_tfidf_dense = X_tfidf.todense()
         X_tfidf_array = np.array(X_tfidf_dense)
@@ -446,23 +492,42 @@ class PreprocessGCAT:
         print("Max value:", np.max(X_tfidf_array))
         print("Percentiles:", np.percentile(X_tfidf_array, [25, 50, 75, 95]))
 
-    def transform_new_data(self, new_text):
-        new_data_tfidf = self.vec.transform(new_text)
-        return new_data_tfidf
-
     def create_doc_term_matrix(self):
+        """
+        Create the document term matrix
+
+        Args:
+            None
+
+        Returns:
+            dtm(scipy.sparse._csr.csr_matrix): Document term matrix
+        """
+
         docs = list(self.X_train)
         dtm = self.vec.fit_transform(docs)
         return dtm
 
+
     def pca_analysis(self, dtm):
+        """
+        Procedure to analyze the PCA of the document term matrix, plot 
+        explained variance, return the ideal number of components.
+
+        Args:
+            dtm(scipy.sparse._csr.csr_matrix): Document term matrix
+
+        Returns:
+            explained_var(list): List of explained variance ratios
+            components(int): Number of components to explain 95% variance
+        """
+
+
         pca_temp = PCA().fit(dtm.toarray())
         
         # Calculate cumulative variance and components
         cumulative_variance = np.cumsum(pca_temp.explained_variance_ratio_)
         components = np.argmax(cumulative_variance >= 0.95) + 1
         components_range = components + (components % 5) + 5
-        
         explained_var = []
         for comp in range(1, components_range, 5):
             pca = PCA(n_components=comp)
@@ -498,6 +563,21 @@ class PreprocessGCAT:
     
 
     def evaluate_balancers(self, models, class_balancers, n_components=40):
+        """
+        Procedure to quickly compare different class imbalance correction 
+        methods before performing grid search. Intended to be used for 
+        exploration of class imbalance correction.
+
+        Args:
+            models(list): List of models to evaluate
+            class_balancers(list): List of class imbalance correction methods
+            n_components(int): Number of components for PCA
+
+        Returns:
+            balancer_eval(pd.DataFrame): DataFrame of evaluation
+        """
+
+
         models = models
         class_balancers = class_balancers
         n_components = n_components
