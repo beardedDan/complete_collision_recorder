@@ -1,9 +1,40 @@
-import cv2
-import os
+# General Packages
+import pandas as pd
+import numpy as np
 import re
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+from collections import Counter
+import logging
+
+# OCR Packages
+import cv2
 from pdf2image import convert_from_path
 import pytesseract
-import logging
+
+# Preprocessing Packages
+import nltk
+from nltk.stem import PorterStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from imblearn.over_sampling import SMOTE, SVMSMOTE, KMeansSMOTE, ADASYN, BorderlineSMOTE, RandomOverSampler
+from sklearn.preprocessing import StandardScaler, FunctionTransformer, MaxAbsScaler
+from sklearn.decomposition import PCA, TruncatedSVD
+from sklearn.cluster import KMeans
+
+# Model Selection Packages
+from sklearn.svm import LinearSVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_val_score, train_test_split, StratifiedKFold, GridSearchCV
+from imblearn.pipeline import Pipeline
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+# Warning Suppression
+import warnings
+warnings.filterwarnings("ignore", message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None")
+
 
 class PdfTextExtraction: 
     """
@@ -356,3 +387,154 @@ class PdfTextExtraction:
             "5": "PROPERTY DAMAGE CAUSED BY ",
         }
         return severity_map.get(severity_code, "UNKNOWN INJURY CAUSED BY ")
+
+
+class PreprocessGCAT:
+
+    def __init__(self, df, text_column, label_column, test_size=0.2, norm = 'l2', vocabulary=None, min_df=0.05, max_df=0.9, max_features=500):
+        self.df = df
+        self.text_column = text_column
+        self.label_column = label_column   
+        self.test_size = test_size
+        self.train_size = 1 - test_size
+        self.norm = norm
+        self.vocabulary = vocabulary
+        self.min_df = min_df
+        self.max_df = max_df
+        self.max_features = max_features
+
+        self.ps = PorterStemmer()
+        self.stopWords = set(nltk.corpus.stopwords.words('english'))
+        self.charfilter = re.compile('[a-zA-Z]+')
+        self.vec = TfidfVectorizer(tokenizer=self.CCR_Tokenizer, 
+                                   norm=self.norm, 
+                                   vocabulary=self.vocabulary,
+                                   min_df=self.min_df,
+                                   max_df=self.max_df,
+                                   max_features=self.max_features)
+        
+
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            self.df[self.text_column], 
+            self.df[self.label_column], 
+            train_size=self.train_size, 
+            random_state=123
+            )
+        
+        print("Dataset has been split into training and testing sets.")
+        
+        print(f"Number of rows in total: {len(self.df)}")
+        print(f"Number of rows in X_train: {len(self.X_train)}")
+        print(f"Number of rows in X_test: {len(self.X_test)}")        
+        
+
+    def CCR_Tokenizer(self, text):
+        words = map(lambda word: word.lower(), nltk.word_tokenize(text))
+        words = [word for word in words if word not in self.stopWords]
+        tokens = (list(map(lambda token: self.ps.stem(token), words)))
+        ntokens = list(filter(lambda token: self.charfilter.match(token), tokens))
+        return ntokens
+
+
+    def fit_and_evaluate_tfidf_vector(self):
+        X_tfidf = self.vec.fit_transform(self.X_train)
+        X_tfidf_dense = X_tfidf.todense()
+        X_tfidf_array = np.array(X_tfidf_dense)
+        vector_size = X_tfidf.shape[1]
+        print("Number of Features/Terms in vector):", vector_size)
+        print("Min value:", np.min(X_tfidf_array))
+        print("Max value:", np.max(X_tfidf_array))
+        print("Percentiles:", np.percentile(X_tfidf_array, [25, 50, 75, 95]))
+
+    def transform_new_data(self, new_text):
+        new_data_tfidf = self.vec.transform(new_text)
+        return new_data_tfidf
+
+    def create_doc_term_matrix(self):
+        docs = list(self.X_train)
+        dtm = self.vec.fit_transform(docs)
+        return dtm
+
+    def pca_analysis(self, dtm):
+        pca_temp = PCA().fit(dtm.toarray())
+        
+        # Calculate cumulative variance and components
+        cumulative_variance = np.cumsum(pca_temp.explained_variance_ratio_)
+        components = np.argmax(cumulative_variance >= 0.95) + 1
+        components_range = components + (components % 5) + 5
+        
+        explained_var = []
+        for comp in range(1, components_range, 5):
+            pca = PCA(n_components=comp)
+            pca.fit(dtm.toarray())
+            explained_var.append(pca.explained_variance_ratio_.sum())
+        
+        print("Explained Variance: {:.2f}%".format(explained_var[-1]*100))
+        print("Number of Components: ", components)
+
+        # Plot explained variance by number of components
+        plt.figure()
+        plt.plot(range(1, components_range, 5), explained_var, "ro")
+        plt.axhline(y=0.95, color='b', linestyle='--', label='95% Variance')
+        plt.axvline(x=components, color='g', linestyle='--', label='Num Components')
+        plt.xlabel("Number of Components")
+        plt.ylabel("Proportion of Explained Variance")
+
+
+
+        # Scattertlot PCA
+        plt.figure()
+        palette = np.array(sns.color_palette("hls", 10))
+        pca = PCA(n_components=components)  
+        pca.fit(dtm.toarray()) 
+        pca_dtm = pca.transform(dtm.toarray())
+        plt.scatter(pca_dtm[:, 0], pca_dtm[:, 1], c=palette[self.y_train.astype(int)])
+        explained_variance = pca.explained_variance_ratio_.sum()
+        plt.xlabel("Can1")
+        plt.ylabel("Can2")
+
+        return explained_var, components
+    
+    
+
+    def evaluate_balancers(self, models, class_balancers, n_components=40):
+        models = models
+        class_balancers = class_balancers
+        n_components = n_components
+
+        balancer_eval = pd.DataFrame(columns=[
+            'Model', 'Balancer', 'Confusion Matrix', 
+            'Macro Avg Precision', 'Macro Avg Recall', 'Macro Avg F1'
+        ])
+
+        # Run through all combinations of models and balancers
+        for balancer in class_balancers:
+            for m_name, model in models:
+                pipeline = Pipeline([
+                    ('vec', self.vec), 
+                    ('class_balancer', balancer),
+                    ('pca', PCA(n_components=n_components)), 
+                    (m_name, model)
+                ])
+                
+                # Fit and predict
+                pipeline.fit(self.X_train, self.y_train)
+                y_pred = pipeline.predict(self.X_test)
+                
+                # Confusion matrix and classification report
+                conf_matrix = confusion_matrix(self.y_test, y_pred)
+                report = classification_report(self.y_test, y_pred, output_dict=True)['macro avg']
+                
+                # Append results to the DataFrame
+                new_row = pd.DataFrame({
+                    'Model': [m_name], 
+                    'Balancer': [str(balancer)], 
+                    'Confusion Matrix': [conf_matrix],
+                    'Macro Avg Precision': [report['precision']], 
+                    'Macro Avg Recall': [report['recall']], 
+                    'Macro Avg F1': [report['f1-score']]
+                })
+                new_row_rmv_na = new_row.dropna(axis=1, how='all')
+                balancer_eval = pd.concat([balancer_eval, new_row_rmv_na], ignore_index=True)
+
+        return balancer_eval 

@@ -21,3 +21,4 @@
 /notebooks/top_tokens.txt
 /.venv/
 /logs/
+/src/__pycache__/
