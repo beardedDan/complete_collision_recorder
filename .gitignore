@@ -1,0 +1,24 @@
+# Ignore data
+/data/*
+/data/callsforservice.csv
+/data/raw/
+/data/processed/
+
+# Ignore distribution directories
+/dist/
+/build/
+/complete_collision_recorder.egg-info/
+/.ipynb_checkpoints/
+/notebooks/.ipynb_checkpoints/
+/notebooks/data_ingestion/.ipynb_checkpoints/
+/notebooks/fine_tuned_mistralai/
+/notebooks/fine_tuned_model/
+/notebooks/fine_tuned_gemini_llm/
+/notebooks/results/
+/notebooks/logs/
+/notebooks/cad_ids.csv
+/notebooks/tokenized_text.csv
+/notebooks/top_tokens.txt
+/.venv/
+/logs/
+/src/__pycache__/

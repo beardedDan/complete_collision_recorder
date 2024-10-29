@@ -1,0 +1,39 @@
+Creative Commons Attribution 4.0 (CC BY-SA 4.0) with Author Attribution, and Recommended Citation
+
+This work was created to fulfill individual degree requirements of Pennsylvania State University (PSU). No research funding or financial sponsorship was provided by PSU or any external source to aid the completion of this work. No special agreement was made with the university or any external sponsor to commission this work. This work was created in compliance with PSU Academic Integrity Policy 49-20 and the author (s) independently retains the license of all code, designs, and creations of this project and releases it under the Creative Commons Attribution 4.0 (CC BY-SA 4.0) International License. 
+
+You are free to:
+
+    Copy, modify, distribute, or use the content for any purpose, including commercial use, provided you give appropriate credit to the original author(s).
+
+Requirements:
+
+    Attribution — You must give appropriate credit , provide a link to the license, and indicate if changes were made . You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+        Recommended Citation (APA Style):
+
+            Zielinski, D. (2024). Complete Collision Recorder. Retrieved from https://github.com/beardedDan/complete_collision_recorder.
+
+
+    ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+    
+    No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+
+
+No Warranties:
+
+This work is provided "as is," without any warranties of any kind, express or implied, including, but not limited to, warranties of merchantability, fitness for a particular purpose, or non-infringement. The author(s) will not be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from or in connection with the use of the work.
+
+
+
+For more information about this license, visit Creative Commons 4.0 (CC BY-SA 4.0):
+
+https://creativecommons.org/licenses/by-sa/4.0/
+
+and refer to PSUs Intellectual Property Policies:
+
+https://policy.psu.edu/sections/intellectual-property-policies#C
+
+and PSUs Academic Integrity Policy 49-20:
+
+https://senate.psu.edu/students/policies-and-rules-for-undergraduate-students/47-00-48-00-and-49-00-grades/#49-20
