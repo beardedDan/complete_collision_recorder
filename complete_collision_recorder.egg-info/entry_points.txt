@@ -1,2 +1,0 @@
-[console_scripts]
-collision-recorder = src.main:main
