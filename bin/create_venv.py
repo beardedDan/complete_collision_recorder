@@ -8,14 +8,14 @@ def create_virtual_env(root_folder, env_name=".venv"):
     venv_path = os.path.join(root_folder, env_name)
     
     # Check if the virtual environment already exists
-    if os.path.exists(venv_path):
-        print(f"Virtual environment '{env_name}' already exists in {root_folder}.")
-        return
+    # if os.path.exists(venv_path):
+    #     print(f"Virtual environment '{env_name}' already exists in {root_folder}.")
+    #     return
     
     # Create the virtual environment
     print(f"Creating virtual environment '{env_name}' in {root_folder}...")
-    venv.create(venv_path, with_pip=True)
-    print(f"Virtual environment created at {venv_path}.")
+    # venv.create(venv_path, with_pip=True)
+    # print(f"Virtual environment created at {venv_path}.")
     
     # Install toml inside the virtual environment
     install_toml(venv_path)
