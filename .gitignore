@@ -1,4 +1,5 @@
 # Ignore data
+.env
 /data/*
 /data/callsforservice.csv
 /data/raw/

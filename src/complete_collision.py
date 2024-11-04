@@ -47,6 +47,12 @@ from imblearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
+# Google Gemini GenAI Packages
+import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from dotenv import load_dotenv
+load_dotenv()
+
 # Warning Suppression
 import warnings
 
@@ -672,3 +678,61 @@ class PreprocessGCAT:
                 )
 
         return balancer_eval
+
+class GenBikeCleNarrative():
+
+    def __init__(
+        self,
+        google_api_key=None,
+    ):
+        
+        self.google_api_key = google_api_key
+        genai.configure(api_key=os.environ[self.google_api_key])
+
+        """
+        Initiatize the class.
+        Define Google API Key
+
+        Args:
+            google_api_key(str): Google API Key
+
+        Returns:
+            None
+        """    
+
+    def summarize(
+        self, 
+        concat_text=None,
+        max_retries=5
+    ):
+        
+        concat_text = concat_text
+        max_retries = max_retries
+        """
+        Summarize the text using the GenAI model
+
+        Args:
+            concat_text(str): Concatenated text of all detail of collision
+
+        Returns:
+            response.text(str): Summarized text
+        """            
+
+        model = genai.GenerativeModel("tunedModels/bikecleinputdf-4pk28onmojpn") #Fine-tuned Gemini model for bikecle input df
+
+        for attempt in range(max_retries):
+            retries = 0
+            try:
+                response = model.generate_content([concat_text],
+                safety_settings={
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                })
+                return response.text
+
+            except ResourceExhausted as e:
+                retries += 1
+                print(f"Resource exhausted. Attempt {attempt + 1}/{retries}. Retrying in 15 seconds...")
+                time.sleep(15)
+        raise Exception("Max retries reached. Unable to summarize.")        
+
+        

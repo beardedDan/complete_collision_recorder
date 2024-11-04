@@ -37,6 +37,9 @@ accelerate = ">=0.26.0"
 opencv-python = ">=4.10.0.84"
 evaluate = ">=0.4.3"
 imblearn = ">=0.12.4"
+google-auth = ">=2.35.0"
+google-generativeai = ">=0.8.3"
+
 
 [complete_collision_recorder.optional-dependencies]
 dev = [
