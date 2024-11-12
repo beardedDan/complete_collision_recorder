@@ -130,7 +130,11 @@ class PdfTextExtraction:
 
                     if image_files:
                         extracted_text = []
-                        for image_file in image_files:
+                        for i, image_file in enumerate(image_files):
+                            # Do not process the first page of CAD files
+                            # The first page is a cover page
+                            if i == 0:
+                                continue
                             page_text = self.process_ocr(
                                 image_file, output_folder, cad_id
                             )
@@ -326,6 +330,27 @@ class PdfTextExtraction:
             raise FileNotFoundError(f"Form image not found at {image_path}")
 
         text = pytesseract.image_to_string(form)
+
+        # Clean up the text by removing specific strings"
+        # Remove unwanted licensing text (case-insensitive)
+        text = re.sub(
+            r"THIS DOCUMENT WAS CREATED BY AN APPLICATION THAT ISN’T LICENSED TO USE NOVAPDF.*",
+            "",
+            text,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        text = re.sub(
+            r"REDACTION LOG.*",
+            "",
+            text,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        # Remove lines that start with "REDACTION DATE: " (case-insensitive)
+        text = re.sub(r"^REDACTION DATE:.*\n?", "", text, flags=re.IGNORECASE)
+
+        # Convert all text to upper case.
         text = re.sub(r"\s+", " ", text).strip().upper()
 
         return text
