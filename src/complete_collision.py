@@ -331,8 +331,9 @@ class PdfTextExtraction:
 
         text = pytesseract.image_to_string(form)
 
-        # Clean up the text by removing specific strings"
-        # Remove unwanted licensing text (case-insensitive)
+        # Clean up the text by removing specific strings
+
+        # Remove unwanted licensing text (case-insensitive) through end of doc
         text = re.sub(
             r"THIS DOCUMENT WAS CREATED BY AN APPLICATION THAT ISN’T LICENSED TO USE NOVAPDF.*",
             "",
@@ -340,6 +341,7 @@ class PdfTextExtraction:
             flags=re.IGNORECASE | re.DOTALL,
         )
 
+        # Remove unwanted redaction log (case-insensitive)
         text = re.sub(
             r"REDACTION LOG.*",
             "",
@@ -349,6 +351,15 @@ class PdfTextExtraction:
 
         # Remove lines that start with "REDACTION DATE: " (case-insensitive)
         text = re.sub(r"^REDACTION DATE:.*\n?", "", text, flags=re.IGNORECASE)
+
+        # Remove all date and time stamps (e.g., "1/4/2020 17:44:59")
+        text = re.sub(r"\b\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{2}:\d{2}\b", "", text)
+
+        # Remove all special characters, keep spaces
+        text = re.sub(r"[^A-Za-z0-9\s]", "", text)        
+
+        # Collapse multiple spaces into a single space
+        text = re.sub(r"\s{2,}", " ", text).strip()
 
         # Convert all text to upper case.
         text = re.sub(r"\s+", " ", text).strip().upper()
