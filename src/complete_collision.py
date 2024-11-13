@@ -5,8 +5,8 @@ import re
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
-from collections import Counter
 import logging
+import time
 
 # OCR Packages
 import cv2
@@ -17,31 +17,11 @@ import pytesseract
 import nltk
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
-from imblearn.over_sampling import (
-    SMOTE,
-    SVMSMOTE,
-    KMeansSMOTE,
-    ADASYN,
-    BorderlineSMOTE,
-    RandomOverSampler,
-)
-from sklearn.preprocessing import (
-    StandardScaler,
-    FunctionTransformer,
-    MaxAbsScaler,
-)
-from sklearn.decomposition import PCA, TruncatedSVD
-from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 
 # Model Selection Packages
-from sklearn.svm import LinearSVC
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import (
-    cross_val_score,
     train_test_split,
-    StratifiedKFold,
-    GridSearchCV,
 )
 from imblearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
@@ -51,7 +31,6 @@ from sklearn.metrics import confusion_matrix
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from dotenv import load_dotenv
-load_dotenv()
 
 # Warning Suppression
 import warnings
@@ -60,6 +39,9 @@ warnings.filterwarnings(
     "ignore",
     message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None",
 )
+
+# Load environmental variables
+load_dotenv()
 
 
 class PdfTextExtraction:
@@ -353,10 +335,12 @@ class PdfTextExtraction:
         text = re.sub(r"^REDACTION DATE:.*\n?", "", text, flags=re.IGNORECASE)
 
         # Remove all date and time stamps (e.g., "1/4/2020 17:44:59")
-        text = re.sub(r"\b\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{2}:\d{2}\b", "", text)
+        text = re.sub(
+            r"\b\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{2}:\d{2}\b", "", text
+        )
 
         # Remove all special characters, keep spaces
-        text = re.sub(r"[^A-Za-z0-9\s]", "", text)        
+        text = re.sub(r"[^A-Za-z0-9\s]", "", text)
 
         # Collapse multiple spaces into a single space
         text = re.sub(r"\s{2,}", " ", text).strip()
@@ -636,12 +620,13 @@ class PreprocessGCAT:
         pca = PCA(n_components=components)
         pca.fit(dtm.toarray())
         pca_dtm = pca.transform(dtm.toarray())
+        explained_variance = pca.explained_variance_ratio_.sum()
         plt.scatter(
             pca_dtm[:, 0], pca_dtm[:, 1], c=palette[self.y_train.astype(int)]
         )
-        explained_variance = pca.explained_variance_ratio_.sum()
         plt.xlabel("Can1")
         plt.ylabel("Can2")
+        print("Explained Variance: {:.2f}%".format(explained_variance * 100))
 
         return explained_var, components
 
@@ -715,13 +700,14 @@ class PreprocessGCAT:
 
         return balancer_eval
 
-class GenBikeCleNarrative():
+
+class GenBikeCleNarrative:
 
     def __init__(
         self,
         google_api_key=None,
     ):
-        
+
         self.google_api_key = google_api_key
         genai.configure(api_key=os.environ[self.google_api_key])
 
@@ -734,16 +720,12 @@ class GenBikeCleNarrative():
 
         Returns:
             None
-        """    
+        """
 
-    def summarize(
-        self, 
-        concat_text=None,
-        max_retries=5
-    ):
-        
-        concat_text = concat_text
-        max_retries = max_retries
+    def summarize(self, concat_text=None, max_retries=5):
+
+        # concat_text = concat_text
+        # max_retries = max_retries
         """
         Summarize the text using the GenAI model
 
@@ -752,23 +734,29 @@ class GenBikeCleNarrative():
 
         Returns:
             response.text(str): Summarized text
-        """            
+        """
 
-        model = genai.GenerativeModel("tunedModels/bikecleinputdf-4pk28onmojpn") #Fine-tuned Gemini model for bikecle input df
+        model = genai.GenerativeModel(
+            "tunedModels/bikecleinputdf-4pk28onmojpn"
+        )  # Fine-tuned Gemini model for bikecle input df
+
+        retries = 0
 
         for attempt in range(max_retries):
-            retries = 0
             try:
-                response = model.generate_content([concat_text],
-                safety_settings={
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                })
+                response = model.generate_content(
+                    [concat_text],
+                    safety_settings={
+                        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                    },
+                )
                 return response.text
 
             except ResourceExhausted as e:
                 retries += 1
-                print(f"Resource exhausted. Attempt {attempt + 1}/{retries}. Retrying in 15 seconds...")
+                print(
+                    f"Resource exhausted. Attempt {attempt + 1}/{retries}. "
+                    f"Retrying in 15 seconds...\nError: {e}"
+                )
                 time.sleep(15)
-        raise Exception("Max retries reached. Unable to summarize.")        
-
-        
+        raise Exception("Max retries reached. Unable to summarize.")

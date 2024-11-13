@@ -27,7 +27,6 @@ args = parser.parse_args()
 # Clean descriptions from the reports
 training_df = pd.read_csv(os.path.join(data_dir, "processed", "training_df.csv"))
 training_df['concatenated_text'] = training_df.apply(u.concatenate_texts, axis=1)
-u.clean_text(training_df, 'concatenated_text')
 
 # Load the severity model
 with open(os.path.join(models_dir,'severity.pkl'), 'rb') as f:
