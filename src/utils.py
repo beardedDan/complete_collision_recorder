@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 def concatenate_texts(row):
     cad_text = row['CAD_TEXT'] if pd.notna(row['CAD_TEXT']) else ""
@@ -42,3 +43,86 @@ def map_project_directories():
     models_dir = os.path.join(root_dir,"models")
     print("Models Directory: ", models_dir)
     return root_dir, src_dir, data_dir, models_dir
+
+def clean_cad_id(year, id_num):
+    """
+    Clean and standardize the CAD_ID based on predefined patterns.
+    
+    Parameters:
+    year (str): The year associated with the record.
+    id_num (str): The original ID number to be cleaned.
+    
+    Returns:
+    str: The cleaned and standardized CAD_ID.
+    """
+    patterns = {
+        "year-hyphen": r'^\d{4}-\d{5,}',
+        "year_no_hyphen": r'^\d{10}$',
+        "2digit-year-hyphen": r'^\d{2}-\d{5,}',
+        "special": r'^\d{2}-\d{4}-\d{2}',
+        "miscellaneous": r'.+',
+        "rpt_num_only": r'^\d{5,}'
+    }
+
+    if pd.isna(id_num):
+        return None  # Return None for missing or NaN values
+
+    id_num = str(id_num)  # Ensure id_num is a string
+
+    if re.match(patterns["year-hyphen"], id_num):
+        parts = id_num.split("-", 1)
+        new_id = parts[0] + parts[1].zfill(8)  # Pad second part to 5 digits
+    elif re.match(patterns["year_no_hyphen"], id_num):
+        
+        part1 = id_num[:4] 
+        part2 = id_num[4:]
+        print(part1,part2)
+        new_id = part1 + part2.zfill(8)
+    elif re.match(patterns["2digit-year-hyphen"], id_num):
+        parts = id_num.split("-", 1)
+        new_id = parts[0] + parts[1].zfill(8)  # Prepend '20' and pad to 5 digits
+    elif re.match(patterns["rpt_num_only"], id_num):
+        new_id = year + id_num.zfill(8)  # Concatenate year and padded ID
+    elif re.match(patterns["special"], id_num):
+        new_id = id_num.replace("-", "")  # Remove hyphens
+    else:
+        new_id = id_num.replace("-", "")  # Remove hyphens for miscellaneous cases
+
+    return new_id
+
+def remove_extra_cad_chars(cad_id):
+    return cad_id[:12]
+
+def remove_extra_oh1_chars(cad_id):
+    return "20" + cad_id[16:]
+
+def read_text_file(file_path):
+    with open(file_path, 'r') as file:
+        return file.read()
+
+def load_text_into_dict(image_dir):
+    """
+    Read all text files from the given directory and store the 
+    content in a dictionary.
+    
+    Parameters:
+    image_dir (str): The directory containing the text files.
+    
+    Returns:
+    dict: A dictionary with incident IDs as keys and file contents as values.
+    """
+    text_dict = {}
+    with ThreadPoolExecutor() as executor:
+        folder_paths = [os.path.join(image_dir, folder) for 
+                        folder in os.listdir(image_dir) 
+                        if os.path.isdir(os.path.join(image_dir, folder))]
+        file_paths = []
+        for folder in folder_paths:
+            for file in os.listdir(folder):
+                if file.endswith('.txt'):
+                    file_paths.append(os.path.join(folder, file))
+        results = executor.map(read_text_file, file_paths)
+        for file_path, content in zip(file_paths, results):
+            incident_id = os.path.basename(file_path).split('.')[0]
+            text_dict[incident_id] = content
+    return text_dict

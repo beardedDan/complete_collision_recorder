@@ -11,13 +11,15 @@ def main():
 
         1. extract_and_ingest_text_from_cad_pdf.py
         2. extract_and_ingest_text_from_oh1_pdf.py
-        3. score_and_describe_reports.py
+        3. assemble_text.py
+        4. score_and_describe_reports.py
 
     """
     print("Collision Recorder CLI is running...")
 
     run_bin_program("extract_and_ingest_text_from_cad_pdf.py")
     run_bin_program("extract_and_ingest_text_from_oh1_pdf.py")
+    run_bin_program("assemble_text.py")
     print("Running score_and_describe_reports.py with --testing argument...")
     subprocess.run(["python", "../bin/score_and_describe_reports.py", "--testing"], check=True)
 
