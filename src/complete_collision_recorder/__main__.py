@@ -32,44 +32,5 @@ def run_all():
     print("All data extraction and prediction processes complete.")
     print("Stopping Collision Recorder CLI.")
 
-def run_cad_import():
-    """
-    The program will run these programs in order:
-
-        extract_and_ingest_text_from_cad_pdf.py
-
-    """
-    print("Extracting text from CAD files...")
-
-    run_bin_program("extract_and_ingest_text_from_cad_pdf.py")
-
-    print("Data extraction and prediction process completed.")
-
-def run_oh1_import():
-    """
-    The program will run these programs in order:
-
-        extract_and_ingest_text_from_oh1_pdf.py
-
-    """
-    print("Extracting text from OH1 files...")
-
-    run_bin_program("extract_and_ingest_text_from_oh1_pdf.py")
-
-    print("Data extraction and prediction process completed.")
-
-def run_assemble_text():
-    """
-    The program will run these programs in order:
-
-        assemble_text.py
-
-    """
-    print("Assembling extracted text into a single file...")
-
-    run_bin_program("assemble_text.py")
-
-    print("Text assembly process completed.")
-
 if __name__ == "__main__":
     run_all()

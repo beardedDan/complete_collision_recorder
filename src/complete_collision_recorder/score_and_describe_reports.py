@@ -6,13 +6,7 @@ import numpy as np
 import pickle
 import argparse
 
-
-# Append the src directory to sys.path and import the src modules
-# Get the path to the project root (one level up from `bin/`)
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-src_dir = os.path.join(project_root, "src", "complete_collision_recorder")
-sys.path.insert(0, src_dir)
-
+# Import project scripts
 import complete_collision as cc
 import utils as u
 

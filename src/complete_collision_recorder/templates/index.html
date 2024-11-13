@@ -5,11 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collision Recorder</title>
+    <title>Complete Collision Recorder</title>
 </head>
 <body>
     <h1>Collision Recorder Interface</h1>
-    <button id="recordButton">Record Collision</button>
+
+    <!-- Buttons for different actions -->
+    <button id="extractCadTextButton">Extract CAD Text</button>
+    <button id="extractOH1TextButton">Extract OH1 Text</button>
+    <button id="assembleTextButton">Assemble Text</button>
+    <button id="scoreAndDescribeTextButton">Score and Describe Text</button>
+    <button id="runAllButton">Run All</button>
 
     <!-- Link to the JavaScript file -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>

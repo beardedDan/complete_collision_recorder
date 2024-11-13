@@ -40,15 +40,14 @@ def _apply_patterns(text, patterns):
 
 # Map src directory
 def map_project_directories():
-    root_dir = os.path.abspath(os.path.join(os.getcwd(), "../."))
-    print("Root Directory: ", root_dir)
-    src_dir = os.path.join(root_dir, "src")
-    print("Src Directory: ", src_dir)
+    print("Mapping project directories...")
+    src_dir = os.path.abspath(os.path.join(os.getcwd(), "../."))
+    # print("Src Directory: ", src_dir)
+    root_dir = os.path.abspath(src_dir + "/../")
+    # print("Root Directory: ", root_dir)
     sys.path.append(src_dir)
     data_dir = os.path.join(root_dir, "data")
-    print("Data Directory: ", data_dir)
     models_dir = os.path.join(root_dir, "models")
-    print("Models Directory: ", models_dir)
     return root_dir, src_dir, data_dir, models_dir
 
 
