@@ -76,7 +76,6 @@ def clean_cad_id(year, id_num):
         
         part1 = id_num[:4] 
         part2 = id_num[4:]
-        print(part1,part2)
         new_id = part1 + part2.zfill(8)
     elif re.match(patterns["2digit-year-hyphen"], id_num):
         parts = id_num.split("-", 1)
