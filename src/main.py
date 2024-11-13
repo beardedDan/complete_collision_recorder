@@ -23,6 +23,7 @@ def main():
     print("Running score_and_describe_reports.py with --testing argument...")
     subprocess.run(["python", "../bin/score_and_describe_reports.py", "--testing"], check=True)
 
+    print("Collision Recorder CLI has finished running.")
 
 if __name__ == "__main__":
     main()

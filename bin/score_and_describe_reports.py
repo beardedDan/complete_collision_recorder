@@ -69,3 +69,4 @@ GCAT_pred_df['GenAISummary'] = GCAT_pred_df['concatenated_text'].apply(lambda x:
 
 # bikeCLE_input_df
 GCAT_pred_df.to_csv(os.path.join(data_dir, "processed", "GenAI_df.csv"))
+print(f"Saved Gemini GenAI narratives saved to {os.path.join(data_dir, 'processed', 'GenAI_df.csv')}")
