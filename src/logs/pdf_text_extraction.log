@@ -20,3 +20,90 @@
 2024-11-13 13:52:26,239 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
 2024-11-13 13:52:27,467 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
 2024-11-13 13:52:30,343 - INFO - PdfTextExtraction - Processing CAD PDF: 202000009143.pdf
+2024-11-13 13:55:18,303 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 13:55:18,303 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-13 13:55:19,519 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-13 13:55:23,272 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-13 13:55:29,316 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-13 13:55:31,839 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-13 13:55:34,863 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-13 13:55:36,326 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-13 13:55:39,510 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-13 13:55:42,122 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-13 13:55:45,893 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-13 13:55:50,721 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-13 13:55:51,895 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-13 13:55:54,700 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 13:56:14,796 - INFO - PdfTextExtraction - Starting PDF processing of OH1 in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-13 13:56:14,872 - INFO - PdfTextExtraction - Template loaded from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/docs/oh1_page_1_template.png
+2024-11-13 13:56:14,873 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000001607.pdf
+2024-11-13 13:56:21,742 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000002644.pdf
+2024-11-13 13:56:30,650 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000003892.pdf
+2024-11-13 13:56:39,323 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004207.pdf
+2024-11-13 13:56:49,610 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004832.pdf
+2024-11-13 13:56:59,119 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006669.pdf
+2024-11-13 13:57:06,872 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006670.pdf
+2024-11-13 13:57:14,636 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000008453.pdf
+2024-11-13 13:57:21,397 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009143.pdf
+2024-11-13 13:57:22,059 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009720.pdf
+2024-11-13 13:57:29,735 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009876.pdf
+2024-11-13 13:57:37,692 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000012614.pdf
+2024-11-13 13:57:45,413 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-13 14:00:04,068 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 14:00:04,068 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-13 14:00:05,247 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-13 14:00:08,966 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-13 14:00:15,213 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-13 14:00:17,867 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-13 14:00:20,926 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-13 14:00:22,405 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-13 14:00:25,659 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-13 14:00:28,311 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-13 14:00:32,073 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-13 14:00:36,881 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-13 14:00:38,049 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-13 14:00:40,860 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 14:04:12,843 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 14:04:12,843 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-13 14:04:14,118 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-13 14:04:17,906 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-13 14:04:24,006 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-13 14:04:26,554 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-13 14:04:29,534 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-13 14:04:30,953 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-13 14:04:34,122 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-13 14:04:36,718 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-13 14:04:40,469 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-13 14:04:45,274 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-13 14:04:46,443 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-13 14:04:49,280 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-13 14:11:06,356 - INFO - PdfTextExtraction - Starting PDF processing of OH1 in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-13 14:11:06,433 - INFO - PdfTextExtraction - Template loaded from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/docs/oh1_page_1_template.png
+2024-11-13 14:11:06,433 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000001607.pdf
+2024-11-13 14:11:13,392 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000002644.pdf
+2024-11-13 14:11:22,505 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000003892.pdf
+2024-11-13 14:11:31,501 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004207.pdf
+2024-11-13 14:11:42,127 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004832.pdf
+2024-11-13 14:11:50,320 - INFO - PdfTextExtraction - Starting PDF processing of OH1 in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-13 14:11:50,402 - INFO - PdfTextExtraction - Template loaded from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/docs/oh1_page_1_template.png
+2024-11-13 14:11:50,402 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000001607.pdf
+2024-11-13 14:11:51,928 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006669.pdf
+2024-11-13 14:11:57,633 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000002644.pdf
+2024-11-13 14:12:00,051 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006670.pdf
+2024-11-13 14:12:06,953 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000003892.pdf
+2024-11-13 14:12:08,151 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000008453.pdf
+2024-11-13 14:12:15,273 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009143.pdf
+2024-11-13 14:12:16,040 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009720.pdf
+2024-11-13 14:12:16,135 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004207.pdf
+2024-11-13 14:12:24,014 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009876.pdf
+2024-11-13 14:12:26,932 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000004832.pdf
+2024-11-13 14:12:32,383 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000012614.pdf
+2024-11-13 14:12:36,852 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006669.pdf
+2024-11-13 14:12:40,479 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-13 14:12:44,894 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000006670.pdf
+2024-11-13 14:12:52,851 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000008453.pdf
+2024-11-13 14:12:59,776 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009143.pdf
+2024-11-13 14:13:00,515 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009720.pdf
+2024-11-13 14:13:08,259 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009876.pdf
+2024-11-13 14:13:16,281 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000012614.pdf
+2024-11-13 14:13:24,073 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files

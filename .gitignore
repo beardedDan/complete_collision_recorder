@@ -22,4 +22,5 @@
 /notebooks/top_tokens.txt
 /.venv/
 /logs/
+/src/complete_collision_recorder/logs/
 /src/__pycache__/

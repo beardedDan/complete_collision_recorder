@@ -40,7 +40,7 @@ def _apply_patterns(text, patterns):
 
 # Map src directory
 def map_project_directories():
-    print("Mapping project directories...")
+    # print("Mapping project directories...")
     src_dir = os.path.abspath(os.path.join(os.getcwd(), "../."))
     # print("Src Directory: ", src_dir)
     root_dir = os.path.abspath(src_dir + "/../")

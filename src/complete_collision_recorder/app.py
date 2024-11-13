@@ -62,7 +62,7 @@ def score_and_describe_text():
     try:
         script_path = os.path.join(os.getcwd(), 'score_and_describe_reports.py')
         # result = subprocess.run(['python', script_path], capture_output=True, text=True)
-        result = subprocess.run(['python', 'extract_and_ingest_text_from_cad_pdf.py', '--testing'], capture_output=True, text=True)
+        result = subprocess.run(['python', 'score_and_describe_reports.py', '--testing'], capture_output=True, text=True)
 
         if result.returncode != 0:
             return jsonify({'status': 'error', 'message': result.stderr}), 500
