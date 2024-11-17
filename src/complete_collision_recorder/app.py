@@ -1,5 +1,3 @@
-# complete_collision_recorder/webapp/app.py
-
 import os
 from flask import Flask, render_template, request, jsonify
 import subprocess
