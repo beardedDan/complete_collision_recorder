@@ -107,3 +107,273 @@
 2024-11-13 14:13:08,259 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000009876.pdf
 2024-11-13 14:13:16,281 - INFO - PdfTextExtraction - Processing OH1 PDF: 202000012614.pdf
 2024-11-13 14:13:24,073 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/oh1_pdf_files
+2024-11-17 12:08:13,045 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 12:08:13,060 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 12:08:14,508 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 12:08:18,184 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 12:08:24,168 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 12:08:26,686 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 12:08:29,640 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 12:08:31,086 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 12:08:34,259 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 12:08:36,851 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 12:08:40,606 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 12:08:45,356 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 12:08:46,525 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 12:08:49,323 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:24:36,765 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:24:36,765 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:24:38,010 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:24:41,766 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:24:48,010 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:24:50,679 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:24:53,714 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:24:55,194 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:24:58,430 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:25:01,140 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:25:04,979 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:25:09,831 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:25:11,069 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:25:13,937 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:38:44,493 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:38:44,493 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:38:45,733 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:38:49,658 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:38:56,042 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:38:58,724 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:39:01,840 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:39:03,357 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:39:06,707 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:39:09,437 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:39:13,528 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:39:18,552 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:39:19,790 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:39:22,738 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:40:35,022 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:40:35,022 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:40:36,238 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:40:40,083 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:40:46,349 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:40:49,020 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:40:52,114 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:40:53,638 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:40:56,955 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:40:59,732 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:41:03,698 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:41:08,871 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:41:10,128 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:41:13,168 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:43:13,826 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:43:13,826 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:43:15,059 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:43:18,801 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:43:24,886 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:43:27,450 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:43:30,514 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:43:32,002 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:43:35,289 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:43:37,961 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:43:41,810 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:43:46,749 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:43:47,928 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:43:50,747 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:47:43,639 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:47:43,640 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:47:44,800 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:47:48,497 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:47:54,525 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:47:57,034 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:48:00,001 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:48:01,436 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:48:04,621 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:48:07,208 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:48:11,011 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:48:15,806 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:48:16,977 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:48:19,789 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:49:24,331 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:49:24,332 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:49:25,498 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:49:29,146 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:49:56,841 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:49:56,841 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:49:58,050 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:50:01,786 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:50:07,999 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:50:10,550 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:50:13,644 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:50:15,132 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:50:18,475 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:50:21,272 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:50:25,265 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:50:30,177 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:50:31,408 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:50:34,382 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:51:41,016 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:51:41,016 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:51:42,218 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:51:45,949 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:51:52,137 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:51:54,657 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:51:57,610 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:51:59,039 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:52:02,183 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:52:04,773 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:52:08,541 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:52:13,343 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:52:14,552 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:52:17,465 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:54:25,393 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:54:25,393 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:54:26,576 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:54:30,287 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:54:36,353 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:54:38,920 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:54:41,906 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:54:43,382 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:54:46,591 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:54:49,236 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:54:53,048 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:54:57,932 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:54:59,148 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:55:01,970 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:55:18,579 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:55:18,579 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:55:19,797 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:55:23,526 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:55:29,518 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:55:32,013 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:55:34,940 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:55:36,370 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:55:39,514 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:55:42,085 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:55:45,828 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:55:50,612 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:55:51,779 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:55:54,633 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:56:37,885 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 13:56:37,885 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 13:56:39,046 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 13:56:42,698 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 13:56:48,673 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 13:56:51,165 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 13:56:54,102 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 13:56:55,530 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 13:56:58,692 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 13:57:01,265 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 13:57:05,043 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 13:57:09,868 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 13:57:11,040 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 13:57:13,867 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:14:41,871 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:14:41,871 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:14:43,026 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:14:46,679 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:14:52,640 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:14:55,141 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:14:58,124 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:14:59,554 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:15:02,704 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:15:05,279 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:15:09,120 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:15:13,941 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:15:15,133 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:15:18,040 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:15:47,794 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:15:47,794 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:15:48,947 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:15:52,571 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:15:58,525 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:16:01,020 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:16:03,975 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:16:05,419 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:16:08,727 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:16:11,364 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:16:15,312 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:16:20,273 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:16:21,534 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:16:24,435 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:16:43,190 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:16:43,190 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:16:44,366 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:16:48,099 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:16:54,189 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:16:56,744 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:16:59,759 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:17:01,219 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:17:04,430 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:17:07,106 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:17:11,034 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:17:16,140 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:17:17,406 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:17:20,404 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:17:49,367 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:17:49,367 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:17:50,559 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:17:54,337 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:18:00,473 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:18:03,058 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:18:06,103 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:18:07,578 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:18:10,924 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:18:13,628 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:18:17,589 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:18:22,774 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:18:24,053 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:18:26,989 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:20:22,185 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:20:22,185 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:20:23,381 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:20:27,132 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:20:33,575 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:20:36,301 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:20:39,438 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:20:41,090 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:20:44,496 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:20:47,239 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:20:51,366 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:20:56,681 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:20:57,930 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:21:00,931 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:21:08,679 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:21:08,679 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:21:09,875 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:21:13,622 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:21:19,735 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:21:22,306 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:21:25,320 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:21:26,790 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:21:30,152 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:21:33,006 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:21:37,035 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:21:42,105 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:21:43,361 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:21:46,294 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:24:22,347 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 14:24:22,347 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 14:24:23,579 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 14:24:27,388 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 14:24:33,669 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 14:24:36,272 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 14:24:39,326 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 14:24:40,834 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 14:24:44,157 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 14:24:46,846 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 14:24:50,803 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 14:24:55,820 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 14:24:57,056 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 14:25:00,060 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 16:32:07,917 - INFO - PdfTextExtraction - Starting PDF processing of CAD files in folder: /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files
+2024-11-17 16:32:07,917 - INFO - PdfTextExtraction - Processing CAD PDF: 202000000930.pdf
+2024-11-17 16:32:09,799 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002596.pdf
+2024-11-17 16:32:13,705 - INFO - PdfTextExtraction - Processing CAD PDF: 202000002644.pdf
+2024-11-17 16:32:20,268 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003457.pdf
+2024-11-17 16:32:22,896 - INFO - PdfTextExtraction - Processing CAD PDF: 202000003892.pdf
+2024-11-17 16:32:26,080 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004207.pdf
+2024-11-17 16:32:27,731 - INFO - PdfTextExtraction - Processing CAD PDF: 202000004832.pdf
+2024-11-17 16:32:31,371 - INFO - PdfTextExtraction - Processing CAD PDF: 202000005498.pdf
+2024-11-17 16:32:34,304 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006013.pdf
+2024-11-17 16:32:38,631 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006669.pdf
+2024-11-17 16:32:44,220 - INFO - PdfTextExtraction - Processing CAD PDF: 202000006670.pdf
+2024-11-17 16:32:45,629 - INFO - PdfTextExtraction - Processing CAD PDF: 202000008453.pdf
+2024-11-17 16:32:48,838 - INFO - PdfTextExtraction - All files processed from /media/dzielinski06/HDD1/AI894 - Capstone/Complete Collision Recorder/data/raw/cad_pdf_files

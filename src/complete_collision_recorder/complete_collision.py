@@ -3,10 +3,13 @@ import pandas as pd
 import numpy as np
 import re
 import os
+import csv
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
 import time
+import requests
+import zipfile
 
 # OCR Packages
 import cv2
@@ -14,6 +17,7 @@ from pdf2image import convert_from_path
 import pytesseract
 
 # Preprocessing Packages
+import spacy
 import nltk
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -51,12 +55,33 @@ class PdfTextExtraction:
     /docs/system_design_and_functional_nonfunctional_requirements.md
     """
 
-    def __init__(self):
+    def __init__(self, 
+                 data_directory= '../../data/lookup/ssa_names', 
+                 num_top_names=2000, 
+                 min_year=1880, 
+                 max_year=2023, 
+                 output_file = '../../data/lookup/common_names.csv',
+    ):
 
         root_directory = os.path.abspath(os.path.join(os.getcwd(), "../."))
         log_directory = os.path.join(root_directory, "logs")
         os.makedirs(log_directory, exist_ok=True)
         log_file_path = os.path.join(log_directory, "pdf_text_extraction.log")
+
+        # For NER and PII removal, the use of SpaCy Small English model and a 
+        # custom list of Social Security Administration (SSA) names is used.
+        # Import SpaCy
+        self.nlp = spacy.load("en_core_web_trf")
+
+        self.name_pattern = re.compile(r'^[a-zA-Z]+$')
+        self.ssa_url = 'https://www.ssa.gov/oact/babynames/names.zip'
+        self.unique_names = self.create_common_name_dataset(
+            data_directory,
+            output_file,
+            num_top_names, 
+            min_year, 
+            max_year
+        )
 
         # Reference: https://realpython.com/python-logging/
         self.logger = logging.getLogger("PdfTextExtraction")
@@ -73,6 +98,80 @@ class PdfTextExtraction:
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
+
+    def is_valid_name(self, name):
+        return isinstance(name, str) and name.strip() != '' and self.name_pattern.match(name)
+
+    def download_and_unzip_data(
+            self, 
+            zip_url, 
+            target_directory
+    ):
+        os.makedirs(target_directory, exist_ok=True)
+        zip_file_path = os.path.join(target_directory, 'names.zip')
+        response = requests.get(zip_url)
+        with open(zip_file_path, 'wb') as zip_file:
+            zip_file.write(response.content)
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            zip_ref.extractall(target_directory)
+        os.remove(zip_file_path)
+
+    def create_common_name_dataset(
+            self, 
+            data_directory = '../../data/lookup/ssa_names', 
+            output_file = '../../data/lookup/common_names.csv',
+            num_top_names=1000, 
+            min_year=1943, 
+            max_year=2023
+    ):
+        """
+        Creates a dataset of common names and saves it to a CSV file.
+
+        Args:  
+
+            data_directory: Directory containing the SSA names data.
+            output_file: The name of the output CSV file.
+            num_top_names: Minimum count threshold for names to be included.
+            min_year: Starting year for the dataset.
+            max_year: Ending year for the dataset.
+        """
+
+        global UNIQUE_NAMES_LIST
+        self.num_top_names = num_top_names
+        self.min_year = min_year
+        self.max_year = max_year
+        
+        unique_names = set()
+        self.download_and_unzip_data(self.ssa_url, data_directory)
+
+        for year in range(self.min_year, self.max_year):
+            filename = os.path.join(data_directory, f'yob{year}.txt')
+            try:
+                with open(filename, 'r') as file:
+                    for line in file:
+                        name, gender, count = line.strip().split(',')
+                        name = name
+                        if int(count) > self.num_top_names and self.is_valid_name(name):
+                            unique_names.add(name)
+                            
+                        else:
+                            pass
+            except FileNotFoundError:
+                print(f"File {filename} not found.")
+
+        # Write to CSV
+        try:
+            with open(output_file, 'w', newline='') as csvfile:
+                fieldnames = ['Name']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows([{'Name': name} for name in unique_names])
+            print(f"SSA Dataset successfully written to {output_file}.")
+            return sorted(list(unique_names))
+        except Exception as e:
+            print(f"Error writing SSA names to CSV file: {e}")
+
+
 
     def process_cad_pdfs_in_folder(
         self, folder_path, output_base_folder, dpi=300
@@ -127,7 +226,7 @@ class PdfTextExtraction:
                             output_folder, f"{cad_id}_ocr.txt"
                         )
 
-                        with open(output_text_file, "a") as text_file:
+                        with open(output_text_file, "w") as text_file:
                             text_file.write(full_text)
 
                     else:
@@ -297,6 +396,8 @@ class PdfTextExtraction:
         """
         Process a single image:
         extract text,
+        clean text,
+        remove names of individuals,
         interpret severity.
 
         Args:
@@ -307,6 +408,7 @@ class PdfTextExtraction:
         Returns:
             None. Saves files to output_folder
         """
+
         form = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         if form is None:
             raise FileNotFoundError(f"Form image not found at {image_path}")
@@ -323,7 +425,8 @@ class PdfTextExtraction:
             flags=re.IGNORECASE | re.DOTALL,
         )
 
-        # Remove unwanted redaction log (case-insensitive)
+        # Remove unwanted redaction log (case-insensitive) starting from "REDACTION LOG"
+        # through the end of the document
         text = re.sub(
             r"REDACTION LOG.*",
             "",
@@ -344,6 +447,23 @@ class PdfTextExtraction:
 
         # Collapse multiple spaces into a single space
         text = re.sub(r"\s{2,}", " ", text).strip()
+
+
+        # Remove names of individuals
+        # First pass: Use SpaCy NER and replace with "PERSON"
+        doc = self.nlp(text)
+        for ent in doc.ents:
+            if ent.label_ == "PERSON":
+                text = text.replace(ent.text, "REDACTED")
+        
+        # Second pass: Replace first names from common_names.csv
+        for name in self.unique_names:
+            # Use regex to match whole word only
+            pattern = r'\b' + re.escape(name) + r'\b'
+
+            # Check if the name exists in the text using re.search
+            if re.search(pattern, text, re.IGNORECASE):
+                text = re.sub(pattern, "REDACTED", text, flags=re.IGNORECASE)
 
         # Convert all text to upper case.
         text = re.sub(r"\s+", " ", text).strip().upper()
