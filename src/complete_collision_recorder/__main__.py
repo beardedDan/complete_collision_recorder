@@ -32,5 +32,6 @@ def run_all():
     print("All data extraction and prediction processes complete.")
     print("Stopping Collision Recorder CLI.")
 
+
 if __name__ == "__main__":
     run_all()

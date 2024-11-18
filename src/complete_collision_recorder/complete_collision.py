@@ -55,12 +55,13 @@ class PdfTextExtraction:
     /docs/system_design_and_functional_nonfunctional_requirements.md
     """
 
-    def __init__(self, 
-                 data_directory= '../../data/lookup/ssa_names', 
-                 num_top_names=2000, 
-                 min_year=1880, 
-                 max_year=2023, 
-                 output_file = '../../data/lookup/common_names.csv',
+    def __init__(
+        self,
+        data_directory="../../data/lookup/ssa_names",
+        num_top_names=2000,
+        min_year=1880,
+        max_year=2023,
+        output_file="../../data/lookup/common_names.csv",
     ):
 
         root_directory = os.path.abspath(os.path.join(os.getcwd(), "../."))
@@ -68,19 +69,16 @@ class PdfTextExtraction:
         os.makedirs(log_directory, exist_ok=True)
         log_file_path = os.path.join(log_directory, "pdf_text_extraction.log")
 
-        # For NER and PII removal, the use of SpaCy Small English model and a 
+        # For NER and PII removal, the use of SpaCy Small English model and a
         # custom list of Social Security Administration (SSA) names is used.
         # Import SpaCy
         self.nlp = spacy.load("en_core_web_trf")
 
-        self.name_pattern = re.compile(r'^[a-zA-Z]+$')
-        self.ssa_url = 'https://www.ssa.gov/oact/babynames/names.zip'
+        # Define a valid first name pattern and link to the SSA dataset
+        self.name_pattern = re.compile(r"^[a-zA-Z]+$")
+        self.ssa_url = "https://www.ssa.gov/oact/babynames/names.zip"
         self.unique_names = self.create_common_name_dataset(
-            data_directory,
-            output_file,
-            num_top_names, 
-            min_year, 
-            max_year
+            data_directory, output_file, num_top_names, min_year, max_year
         )
 
         # Reference: https://realpython.com/python-logging/
@@ -100,34 +98,34 @@ class PdfTextExtraction:
         self.logger.addHandler(console_handler)
 
     def is_valid_name(self, name):
-        return isinstance(name, str) and name.strip() != '' and self.name_pattern.match(name)
+        return (
+            isinstance(name, str)
+            and name.strip() != ""
+            and self.name_pattern.match(name)
+        )
 
-    def download_and_unzip_data(
-            self, 
-            zip_url, 
-            target_directory
-    ):
+    def download_and_unzip_data(self, zip_url, target_directory):
         os.makedirs(target_directory, exist_ok=True)
-        zip_file_path = os.path.join(target_directory, 'names.zip')
+        zip_file_path = os.path.join(target_directory, "names.zip")
         response = requests.get(zip_url)
-        with open(zip_file_path, 'wb') as zip_file:
+        with open(zip_file_path, "wb") as zip_file:
             zip_file.write(response.content)
-        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
             zip_ref.extractall(target_directory)
         os.remove(zip_file_path)
 
     def create_common_name_dataset(
-            self, 
-            data_directory = '../../data/lookup/ssa_names', 
-            output_file = '../../data/lookup/common_names.csv',
-            num_top_names=1000, 
-            min_year=1943, 
-            max_year=2023
+        self,
+        data_directory="../../data/lookup/ssa_names",
+        output_file="../../data/lookup/common_names.csv",
+        num_top_names=1000,
+        min_year=1943,
+        max_year=2023,
     ):
         """
         Creates a dataset of common names and saves it to a CSV file.
 
-        Args:  
+        Parameters:
 
             data_directory: Directory containing the SSA names data.
             output_file: The name of the output CSV file.
@@ -140,20 +138,22 @@ class PdfTextExtraction:
         self.num_top_names = num_top_names
         self.min_year = min_year
         self.max_year = max_year
-        
+
         unique_names = set()
         self.download_and_unzip_data(self.ssa_url, data_directory)
 
         for year in range(self.min_year, self.max_year):
-            filename = os.path.join(data_directory, f'yob{year}.txt')
+            filename = os.path.join(data_directory, f"yob{year}.txt")
             try:
-                with open(filename, 'r') as file:
+                with open(filename, "r") as file:
                     for line in file:
-                        name, gender, count = line.strip().split(',')
+                        name, gender, count = line.strip().split(",")
                         name = name
-                        if int(count) > self.num_top_names and self.is_valid_name(name):
+                        if int(
+                            count
+                        ) > self.num_top_names and self.is_valid_name(name):
                             unique_names.add(name)
-                            
+
                         else:
                             pass
             except FileNotFoundError:
@@ -161,17 +161,15 @@ class PdfTextExtraction:
 
         # Write to CSV
         try:
-            with open(output_file, 'w', newline='') as csvfile:
-                fieldnames = ['Name']
+            with open(output_file, "w", newline="") as csvfile:
+                fieldnames = ["Name"]
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
-                writer.writerows([{'Name': name} for name in unique_names])
+                writer.writerows([{"Name": name} for name in unique_names])
             print(f"SSA Dataset successfully written to {output_file}.")
             return sorted(list(unique_names))
         except Exception as e:
             print(f"Error writing SSA names to CSV file: {e}")
-
-
 
     def process_cad_pdfs_in_folder(
         self, folder_path, output_base_folder, dpi=300
@@ -182,7 +180,7 @@ class PdfTextExtraction:
         extract text with OCR,
         save results.
 
-        Args:
+        Parameters:
             folder_path (str): Folder with saved PDFs.
             output_base_folder (str): Folder to save processed files.
             dpi (int): Dots Per Inch for image conversion default 300
@@ -251,7 +249,7 @@ class PdfTextExtraction:
         extract text,
         save results.
 
-        Args:
+        Parameters:
             folder_path (str): Folder with saved PDFs.
             output_base_folder (str): Folder to save processed files.
             template_path (str): File path of page 1 template.
@@ -303,7 +301,7 @@ class PdfTextExtraction:
         """
         Convert all pages of the PDF to an image.
 
-        Args:
+        Parameters:
             pdf_path (str): Path to the PDF file.
             output_folder (str): Folder to store the resulting image.
             dpi (int): DPI for image conversion.
@@ -325,7 +323,7 @@ class PdfTextExtraction:
         """
         Convert only the first page of the PDF to an image.
 
-        Args:
+        Parameters:
             pdf_path (str): Path to the PDF file.
             output_folder (str): Folder to store the resulting image.
             dpi (int): DPI for image conversion.
@@ -353,7 +351,7 @@ class PdfTextExtraction:
         extract text,
         interpret severity.
 
-        Args:
+        Parameters:
             image_path (str): Path to the image file to process.
             template (np.array): Template image for comparison.
             output_folder (str): Folder to store the extracted images and text.
@@ -400,7 +398,7 @@ class PdfTextExtraction:
         remove names of individuals,
         interpret severity.
 
-        Args:
+        Parameters:
             image_path (str): Path to the image file to process.
             output_folder (str): Folder to store the extracted images and text.
             cad_id (str): Identifier for the current file (used in naming output).
@@ -448,18 +446,17 @@ class PdfTextExtraction:
         # Collapse multiple spaces into a single space
         text = re.sub(r"\s{2,}", " ", text).strip()
 
-
         # Remove names of individuals
         # First pass: Use SpaCy NER and replace with "PERSON"
         doc = self.nlp(text)
         for ent in doc.ents:
             if ent.label_ == "PERSON":
                 text = text.replace(ent.text, "REDACTED")
-        
+
         # Second pass: Replace first names from common_names.csv
         for name in self.unique_names:
             # Use regex to match whole word only
-            pattern = r'\b' + re.escape(name) + r'\b'
+            pattern = r"\b" + re.escape(name) + r"\b"
 
             # Check if the name exists in the text using re.search
             if re.search(pattern, text, re.IGNORECASE):
@@ -476,7 +473,7 @@ class PdfTextExtraction:
         """
         Get bounding boxes for the contours
 
-        Args:
+        Parameters:
             contours (list): List of contours to process.
             min_area (int): Minimum area of a contour to be considered.
             min_width (int): Minimum width of a bounding box.
@@ -501,7 +498,7 @@ class PdfTextExtraction:
         Extract the regions from the form based on the template
         save the extracted text.
 
-        Args:
+        Parameters:
             template_boxes (list): List of bounding boxes from the template.
             form_boxes (list): List of bounding boxes from the form.
             form (np.array): Form image to extract regions from.
@@ -550,7 +547,7 @@ class PdfTextExtraction:
         """
         Interpret the severity code from the extracted text.
 
-        Args:
+        Parameters:
             severity_code (str): Severity code (1-5) extracted from the text.
 
         Returns:
@@ -589,7 +586,7 @@ class PreprocessGCAT:
         Define TF-IDF vectorizer
         Split the dataset into training and testing sets
 
-        Args:
+        Parameters:
             text_column(str): Name of the column containing the text data
             label_column(str) = Name of the column containing the label data
             test_size(float) = Ratio of the test set
@@ -646,7 +643,7 @@ class PreprocessGCAT:
         """
         Stem and tokenize raw text data.
 
-        Args:
+        Parameters:
             text(str): Raw text data to be tokenized
 
         Returns:
@@ -665,7 +662,7 @@ class PreprocessGCAT:
         """
         Procedure to fit and evaluate the TF-IDF vectorizer
 
-        Args:
+        Parameters:
             None
 
         Returns:
@@ -685,7 +682,7 @@ class PreprocessGCAT:
         """
         Create the document term matrix
 
-        Args:
+        Parameters:
             None
 
         Returns:
@@ -701,7 +698,7 @@ class PreprocessGCAT:
         Procedure to analyze the PCA of the document term matrix, plot
         explained variance, return the ideal number of components.
 
-        Args:
+        Parameters:
             dtm(scipy.sparse._csr.csr_matrix): Document term matrix
 
         Returns:
@@ -756,7 +753,7 @@ class PreprocessGCAT:
         methods before performing grid search. Intended to be used for
         exploration of class imbalance correction.
 
-        Args:
+        Parameters:
             models(list): List of models to evaluate
             class_balancers(list): List of class imbalance correction methods
             n_components(int): Number of components for PCA
@@ -835,7 +832,7 @@ class GenBikeCleNarrative:
         Initiatize the class.
         Define Google API Key
 
-        Args:
+        Parameters:
             google_api_key(str): Google API Key
 
         Returns:
@@ -849,7 +846,7 @@ class GenBikeCleNarrative:
         """
         Summarize the text using the GenAI model
 
-        Args:
+        Parameters:
             concat_text(str): Concatenated text of all detail of collision
 
         Returns:

@@ -3,20 +3,48 @@ import re
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor
+import matplotlib.pyplot as plt
+
+# Evaluation Imports
+from sklearn.metrics import (
+    confusion_matrix,
+    ConfusionMatrixDisplay,
+    f1_score,
+    classification_report,
+    roc_auc_score,
+)
 
 
 def concatenate_texts(row):
+    """
+    Concatenate the 'CAD_TEXT' and 'OH1_TEXT' columns.
+
+    Parameters:
+        row (Series): The row containing the text data.
+
+    Returns:
+        cad_text (str): The concatenated text data.
+    """
     cad_text = row["CAD_TEXT"] if pd.notna(row["CAD_TEXT"]) else ""
     oh_text = row["OH1_TEXT"] if pd.notna(row["OH1_TEXT"]) else ""
 
     if oh_text:  # If 'OH_TEXT' is not an empty string
         return cad_text + "POLICE NARRATIVE \n\n " + oh_text
-    else:
-        return cad_text  # If 'OH_TEXT' is empty, return only 'CAD_TEXT'
+    else:  # If it is empty, return only 'CAD_TEXT'
+        return cad_text
 
 
 def clean_text(df, column):
-    # Define the unwanted text and regex patterns
+    """
+    Clean the text data by removing unwanted patterns.
+
+    Parameters:
+        df (DataFrame): The DataFrame containing the text data.
+        column (str): The column containing the text data.
+
+    Returns:
+        df (DataFrame): The DataFrame with cleaned text data.
+    """
     patterns = [
         (
             r"THIS DOCUMENT WAS CREATED BY AN APPLICATION THAT ISN’T LICENSED TO USE NOVAPDF. PURCHASE A LICENSE TO GENERATE PDF FILES WITHOUT THIS NOTICE.",
@@ -38,16 +66,63 @@ def _apply_patterns(text, patterns):
     return text
 
 
+def evaluate_confusion_matrix(y_true, model_best, X_test):
+    """
+    Evaluate the model using the confusion matrix, F1 score, and ROC AUC score.
+
+    Parameters:
+        y_true (array): The true labels.
+        model_best (object): The trained model.
+        X_test (array): The test data.
+
+    Returns:
+        None - Displays the confusion matrix and scores.
+    """
+    y_train_pred = model_best.predict(X_test)
+    print("F1 score: ", f1_score(y_true, y_train_pred, average="weighted"))
+    print(
+        "ROC AUC score: ",
+        roc_auc_score(y_true, y_train_pred, average="weighted"),
+    )
+    print(classification_report(y_true, y_train_pred))
+    conf_matrix = confusion_matrix(y_true, y_train_pred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix)
+    disp.plot(cmap="Blues")
+    plt.title("Confusion Matrix")
+    plt.show()
+
+
 # Map src directory
-def map_project_directories():
-    # print("Mapping project directories...")
-    src_dir = os.path.abspath(os.path.join(os.getcwd(), "../."))
-    # print("Src Directory: ", src_dir)
-    root_dir = os.path.abspath(src_dir + "/../")
-    # print("Root Directory: ", root_dir)
+def map_project_directories(notebook=False):
+    """
+    Maps the project directories
+
+    Parameters:
+        notebook (bool): True if running in a notebook environment, False otherwise.
+
+    Returns:
+        tuple: root_dir, src_dir, data_dir, models_dir
+    """
+    if notebook:
+        # Adjust paths for notebook environment
+        # src_dir = os.path.abspath('../src/complete_collision_recorder/')
+        src_dir = os.path.abspath(
+            os.path.join(
+                os.getcwd(), "../", "src", "complete_collision_recorder"
+            )
+        )
+        root_dir = os.path.abspath(os.path.join(os.getcwd(), "../"))
+        data_dir = os.path.join(root_dir, "data")
+        models_dir = os.path.join(root_dir, "models")
+
+    else:
+        # Deployment environment
+        src_dir = os.path.abspath(os.path.join(os.getcwd(), "../."))
+        root_dir = os.path.abspath(src_dir + "/../")
+        data_dir = os.path.join(root_dir, "data")
+        models_dir = os.path.join(root_dir, "models")
+
     sys.path.append(src_dir)
-    data_dir = os.path.join(root_dir, "data")
-    models_dir = os.path.join(root_dir, "models")
     return root_dir, src_dir, data_dir, models_dir
 
 
