@@ -23,4 +23,5 @@
 /.venv/
 /logs/
 /src/complete_collision_recorder/logs/
+/src/logs/
 /src/__pycache__/
