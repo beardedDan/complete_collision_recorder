@@ -1,7 +1,10 @@
-# Import libraries
+# Standard Python Libraries
 import os
+
+# Local Modules
 import complete_collision as cc
 import utils as u
+
 
 # Step 1: Instantiate the PdfTextExtraction object
 pdf_extractor = cc.PdfTextExtraction()
@@ -18,7 +21,7 @@ print(
 # Step 4: Create the SSA statistical name dataset
 pdf_extractor.create_common_name_dataset(output_ssa_folder)
 
-# Step 5: Assign the input folder for the CAD PDF files and the output folder 
+# Step 5: Assign the input folder for the CAD PDF files and the output folder
 # for the CAD images and extracted text
 folder_path = os.path.join(root_dir, "data", "raw", "cad_pdf_files")
 output_base_folder = os.path.join(root_dir, "data", "processed", "cad_images")

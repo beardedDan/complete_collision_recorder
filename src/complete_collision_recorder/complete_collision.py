@@ -1,44 +1,47 @@
-# General Packages
-import pandas as pd
-import numpy as np
-import re
-import os
+# Standard Python Libraries
 import csv
-import matplotlib.pyplot as plt
-import seaborn as sns
 import logging
-import time
+import os
+import re
 import requests
+import time
+import warnings
 import zipfile
 
-# OCR Packages
+
+# Third-Party Libraries
+
+
+# Visualization and Data manipulation
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+# OCR
 import cv2
 from pdf2image import convert_from_path
 import pytesseract
 
-# Preprocessing Packages
-import spacy
+# Preprocessing and Feature Extraction
 import nltk
+import spacy
 from nltk.stem import PorterStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import PCA
+from sklearn.feature_extraction.text import TfidfVectorizer
 
-# Model Selection Packages
-from sklearn.model_selection import (
-    train_test_split,
-)
+# Model Selection and Evaluation
 from imblearn.pipeline import Pipeline
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
 
-# Google Gemini GenAI Packages
+# Google Gemini GenAI
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from dotenv import load_dotenv
 
-# Warning Suppression
-import warnings
 
+# Set up the logger
 warnings.filterwarnings(
     "ignore",
     message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None",
@@ -1171,21 +1174,19 @@ class GenBikeCleNarrative:
 
     def __init__(
         self,
-        google_api_key=None,
+        google_api_key="CCR_API",
     ):
 
         self.google_api_key = google_api_key
         genai.configure(api_key=os.environ[self.google_api_key])
 
         """
-        This method adds the required Google API key as a class attribute for
-        accessing Google services within the methods.
-        The key is then used with the `genai` library.
+        Instantiates Google API as a class attribute for accessing Google services.
 
         Parameters
         ----------
         google_api_key : str or None
-            The Google API key used for authentication.
+            The Google API key.
 
         Returns
         -------
@@ -1194,7 +1195,8 @@ class GenBikeCleNarrative:
 
     def summarize(self, concat_text=None, max_retries=5):
         """
-        Summarize the provided text using the GenAI model.
+        Summarize the provided text using the Googles GenAI model that has been
+        fine-tuned on BikeCLE narrative data.
 
         Parameters
         ----------
@@ -1217,6 +1219,7 @@ class GenBikeCleNarrative:
         model = genai.GenerativeModel(
             "tunedModels/bikecleinputdf-4pk28onmojpn"
         )  # Fine-tuned Gemini model for bikecle input df
+        #
 
         retries = 0
 
