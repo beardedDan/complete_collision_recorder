@@ -75,6 +75,15 @@ class PdfTextExtraction:
     logger : logging.Logger
         Logger object to log information and errors.
 
+    AI Highlights
+    ----------
+    - NLP Named Entity Recognition (NER) using AI functionality from SpaCy 
+    - NLP NER using a statistical approach in the 'create_common_name_dataset'
+    metehod using Social Security Administration (SSA) data.
+    - Machine Vision Canny Edge Detection in the 'process_image' method
+    for defining bounding boxes and matching text regions to a template.
+    - Machine Visions Optical Character Recognition (OCR) in the
+    'process_cad_pdfs_in_folder' and 'process_oh1_pdfs_in_folder' methods
     """
 
     def __init__(
@@ -833,17 +842,17 @@ class PreprocessGCAT:
     y_test : pandas.Series
         Testing set containing labels.
 
-    Notes
-    -----
-    - The dataset is split into training and testing sets using a fixed random seed.
-    - The training size is calculated as `1 - test_size`.
-    - The TF-IDF vectorizer applies tokenization, normalization, and
-    dimensionality reduction based on the provided or generated vocabulary.
-
     Returns
     -------
     None
         Prints the number of rows in the training and testing sets upon init.
+
+    Notes and AI Highlights
+    -----
+    - The dataset is split into training and testing sets using a fixed random seed.
+    - The training size is calculated as `1 - test_size`.
+    - The TF-IDF vectorizer applies tokenization, normalization, and
+    dimensionality reduction based on the provided or generated vocabulary.        
     """
 
     def __init__(
@@ -1170,6 +1179,12 @@ class GenBikeCleNarrative:
     ----------
     google_api_key : str or None
         The Google API key for accessing Google services. Defaults to None.
+
+    AI Highlights
+    -------------
+    - NLP text summarization using the Google Gemini model.
+    - Fine-tuning of Gemini LLM with BikeCLE narrative data using low-code
+    Google AI services.
     """
 
     def __init__(
