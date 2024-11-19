@@ -50,9 +50,28 @@ load_dotenv()
 
 class PdfTextExtraction:
     """
-    Corresponds to Functional Requirements 01, 02, and 03 in System Design.
-    See details in the README.md or in the System Design document:
-    /docs/system_design_and_functional_nonfunctional_requirements.md
+    Class for extracting and processing text from PDF documents.
+    This corresponds to Functional Requirements 01, 02, and 03 in
+    the System Design.
+
+    For more details, refer to the README.md or System Design document:
+    /docs/system_design_and_functional_nonfunctional_requirements.md.
+
+    Attributes
+    ----------
+    nlp : spacy.lang.en.English
+        SpaCy NLP object for named entity recognition (NER) and name
+        identification/removal.
+    name_pattern : re.Pattern
+        Regular expression pattern to identify valid first names.
+    ssa_url : str
+        URL pointing to the Social Security Administration (SSA)
+        dataset for common names.
+    unique_names : list
+        List of common names derived from the SSA dataset.
+    logger : logging.Logger
+        Logger object to log information and errors.
+
     """
 
     def __init__(
@@ -63,13 +82,34 @@ class PdfTextExtraction:
         max_year=2023,
         output_file="../../data/lookup/common_names.csv",
     ):
+        """
+        Initialize the PdfTextExtraction class. This method sets up the
+        environment for text extraction, including loading necessary models,
+        defining the name pattern, and setting up logging.
 
+        Parameters
+        ----------
+        data_directory : str, optional
+            Directory containing the SSA names data.
+            Default is "/data/lookup/ssa_names".
+        num_top_names : int, optional
+            Number of top names to consider from the SSA dataset.
+        min_year : int, optional
+            The minimum year to filter the SSA names.
+        max_year : int, optional
+            The maximum year to filter the SSA names.
+        output_file : str, optional
+            Path to save the generated list of common names.
+            Default is "/data/lookup/common_names.csv".
+        """
+
+        # Set up logging
         root_directory = os.path.abspath(os.path.join(os.getcwd(), "../."))
         log_directory = os.path.join(root_directory, "logs")
         os.makedirs(log_directory, exist_ok=True)
         log_file_path = os.path.join(log_directory, "pdf_text_extraction.log")
 
-        # For NER and PII removal, the use of SpaCy Small English model and a
+        # For NER and name removal, the use of SpaCy Small English model and a
         # custom list of Social Security Administration (SSA) names is used.
         # Import SpaCy
         self.nlp = spacy.load("en_core_web_trf")
@@ -81,7 +121,7 @@ class PdfTextExtraction:
             data_directory, output_file, num_top_names, min_year, max_year
         )
 
-        # Reference: https://realpython.com/python-logging/
+        # Logging Reference: https://realpython.com/python-logging/
         self.logger = logging.getLogger("PdfTextExtraction")
         self.logger.setLevel(logging.INFO)
         file_handler = logging.FileHandler(
@@ -105,6 +145,23 @@ class PdfTextExtraction:
         )
 
     def download_and_unzip_data(self, zip_url, target_directory):
+        """
+        Download a ZIP file from a URL and extract its contents to a
+        target directory.
+
+        Parameters
+        ----------
+        zip_url : str
+            The URL of the ZIP file to download.
+        target_directory : str
+            The directory where the ZIP file will be extracted.
+
+        Returns
+        -------
+        None
+            The method does not return any value. It extracts the contents of
+            the ZIP file into the specified target directory.
+        """
         os.makedirs(target_directory, exist_ok=True)
         zip_file_path = os.path.join(target_directory, "names.zip")
         response = requests.get(zip_url)
@@ -125,13 +182,30 @@ class PdfTextExtraction:
         """
         Creates a dataset of common names and saves it to a CSV file.
 
-        Parameters:
+        Parameters
+        ----------
+        data_directory : str, optional
+            Directory containing the SSA names data.
+        output_file : str, optional
+            The name of the output CSV file.
+        num_top_names : int, optional
+            Minimum count threshold for names to be included.
+        min_year : int, optional
+            Starting year for the dataset.
+        max_year : int, optional
+            Ending year for the dataset.
 
-            data_directory: Directory containing the SSA names data.
-            output_file: The name of the output CSV file.
-            num_top_names: Minimum count threshold for names to be included.
-            min_year: Starting year for the dataset.
-            max_year: Ending year for the dataset.
+        Returns
+        -------
+        list of str
+            A sorted list of common names that meet the threshold criteria.
+
+        Notes
+        -----
+        This function downloads and processes data from the SSA, filtering
+        for names with a count greater than the specified `num_top_names`
+        threshold, and saves the resulting names to a CSV file.
+
         """
 
         global UNIQUE_NAMES_LIST
@@ -175,18 +249,33 @@ class PdfTextExtraction:
         self, folder_path, output_base_folder, dpi=300
     ):
         """
-        Process all pages of CAD PDF files
-        convert to image,
-        extract text with OCR,
-        save results.
+        Processes CAD PDF files in a specified folder by converting them
+        to images, extracting text with OCR, and saving the results to
+        output folders.
 
-        Parameters:
-            folder_path (str): Folder with saved PDFs.
-            output_base_folder (str): Folder to save processed files.
-            dpi (int): Dots Per Inch for image conversion default 300
+        Parameters
+        ----------
+        folder_path : str
+            Path to the CAD PDF files folder.
+        output_base_folder : str
+            Path to where the processed files will be saved.
+        dpi : int, optional
+            The DPI (dots per inch) setting used for image conversion.
 
-        Returns:
-            None. Saves output files to subfolders within output_base_folder
+        Returns
+        -------
+        None
+            This function does not return any value but saves the
+            processed results in subfolders within `output_base_folder`.
+
+        Notes
+        -----
+        - The function processes all PDF files in `folder_path`,
+        excluding the first page of each PDF (assumed to be a cover page).
+        - Converted image files are used for OCR to extract text, which is
+        then saved as a `.txt` file in the respective subfolder within
+        `output_base_folder`.
+        - Any errors or non-PDF files are logged.
         """
 
         self.logger.info(
@@ -242,21 +331,33 @@ class PdfTextExtraction:
         self, folder_path, output_base_folder, template_path, dpi=300
     ):
         """
-        Process the first page of all PDF files
-        convert to image,
-        matching forms with a template,
-        detect bounding boxes,
-        extract text,
-        save results.
+        Processes OH1 PDF files in a specified folder by converting them to
+        images, extracting text with OCR, and saving the results to output
+        folders.
 
-        Parameters:
-            folder_path (str): Folder with saved PDFs.
-            output_base_folder (str): Folder to save processed files.
-            template_path (str): File path of page 1 template.
-            dpi (int): Dots Per Inch for image conversion default 300
+        Parameters
+        ----------
+        folder_path : str
+            Path to the OH1 PDF files folder.
+        output_base_folder : str
+            Path to where the processed files will be saved.
+        dpi : int, optional
+            The DPI (dots per inch) setting used for image conversion.
 
-        Returns:
-            None. Saves output files to subfolders within output_base_folder
+        Returns
+        -------
+        None
+            This function does not return any value but saves the processed
+            results in subfolders within `output_base_folder`.
+
+        Notes
+        -----
+        - The function processes all PDF files in `folder_path`, excluding the
+        first page of each PDF (assumed to be a cover page).
+        - Converted image files are used for OCR to extract text, which is then
+        saved as a `.txt` file in the respective subfolder within
+        `output_base_folder`.
+        - Any errors or non-PDF files are logged.
         """
 
         self.logger.info(
@@ -299,15 +400,27 @@ class PdfTextExtraction:
 
     def convert_all_page_to_image(self, pdf_path, output_folder, dpi=300):
         """
-        Convert all pages of the PDF to an image.
+        Converts all pages of a PDF file to images and saves them as PNG files.
 
-        Parameters:
-            pdf_path (str): Path to the PDF file.
-            output_folder (str): Folder to store the resulting image.
-            dpi (int): DPI for image conversion.
+        Parameters
+        ----------
+        pdf_path : str
+            The path to the PDF file to be converted.
+        output_folder : str
+            The folder where the resulting images will be saved.
+        dpi : int, optional
+            The DPI (dots per inch) for the image conversion.
 
-        Returns:
-            str: A list of file paths of all saved images.
+        Returns
+        -------
+        list of str
+            A list of file paths to the saved images (one per page).
+
+        Notes
+        -----
+        - Each page of the PDF is converted to a separate PNG image.
+        - The images are saved with filenames in the format
+        `page_<page_number>.png`.
         """
         images = convert_from_path(pdf_path, dpi=dpi)  # Convert all pages
 
@@ -321,15 +434,28 @@ class PdfTextExtraction:
 
     def convert_first_page_to_image(self, pdf_path, output_folder, dpi=300):
         """
-        Convert only the first page of the PDF to an image.
+        Converts the first page of a PDF file to an image and saves it
+        as a PNG file.
 
-        Parameters:
-            pdf_path (str): Path to the PDF file.
-            output_folder (str): Folder to store the resulting image.
-            dpi (int): DPI for image conversion.
+        Parameters
+        ----------
+        pdf_path : str
+            The path to the PDF file to be converted.
+        output_folder : str
+            The folder where the resulting image will be saved.
+        dpi : int, optional
+            The DPI (dots per inch) for the image conversion. Default is 300.
 
-        Returns:
-            str: File path of the saved first page image.
+        Returns
+        -------
+        str or None
+            The file path of the saved first page image if successful,
+            or None if the conversion fails.
+
+        Notes
+        -----
+        - Only the first page of the PDF is converted to an image.
+        - The resulting image is saved with the filename `page_1.png`.
         """
         images = convert_from_path(
             pdf_path, dpi=dpi, first_page=1, last_page=1
@@ -342,23 +468,36 @@ class PdfTextExtraction:
 
     def process_image(self, image_path, template, output_folder, cad_id):
         """
-        Process a single image:
-        resize,
-        blur,
-        detect edges,
-        find contours,
-        match bounding boxes within tolerance,
-        extract text,
-        interpret severity.
+        Processes a single image by applying various image processing
+        techniques: resizing, blurring, edge detection, contour detection,
+        bounding box matching, text extraction.
 
-        Parameters:
-            image_path (str): Path to the image file to process.
-            template (np.array): Template image for comparison.
-            output_folder (str): Folder to store the extracted images and text.
-            cad_id (str): Identifier for the current file (used in naming output).
+        Parameters
+        ----------
+        image_path : str
+            The path to the image file to be processed.
+        template : np.array
+            The template image used for bounding box matching.
+        output_folder : str
+            The folder where the output images and extracted text will be saved.
+        cad_id : str
+            The identifier for the current file, used in naming output files.
 
-        Returns:
-            None. Saves files to output_folder
+        Returns
+        -------
+        None
+            This function does not return a value but saves processed results
+            (extracted images and text) to the `output_folder`.
+
+        Notes
+        -----
+        - The image is resized to match the dimensions of the template image.
+        - Gaussian blurring is applied to the form and template images.
+            - The kernel size is hard-coded to (5, 5) for both images.
+        - Canny edge detection is used to detect edges in both images.
+            - Edge lower and upper intensity thresholds are hard-coded to 50
+            and 150.
+        - Edges are detected and text within bounding boxes are extracted.
         """
         form = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         if form is None:
@@ -392,19 +531,33 @@ class PdfTextExtraction:
 
     def process_ocr(self, image_path, output_folder, cad_id):
         """
-        Process a single image:
-        extract text,
-        clean text,
-        remove names of individuals,
-        interpret severity.
+        Process a single image to extract and clean text, and redact names.
 
-        Parameters:
-            image_path (str): Path to the image file to process.
-            output_folder (str): Folder to store the extracted images and text.
-            cad_id (str): Identifier for the current file (used in naming output).
+        Parameters
+        ----------
+        image_path : str
+            Path to the image file to process.
+        output_folder : str
+            Folder to store the extracted text and images.
+        cad_id : str
+            Identifier for the current file, used in naming output files.
 
-        Returns:
-            None. Saves files to output_folder
+        Returns
+        -------
+        str
+            The cleaned and processed text extracted from the image.
+
+        Notes
+        -----
+        - Text extraction is performed using Tesseract OCR.
+        - Remove specific unwanted text patterns, date/time stamps, and
+        special characters.
+        - Collapse multiple spaces into a single space.
+        - Convert text to uppercase.
+        - Personal names are anonymized in two passes:
+        1. Detected names using SpaCy's Named Entity Recognition (NER) are replaced with "REDACTED."
+        2. Known names from `common_names.csv` are identified and replaced with "REDACTED."
+        - The processed text is returned as a single string.
         """
 
         form = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -423,7 +576,7 @@ class PdfTextExtraction:
             flags=re.IGNORECASE | re.DOTALL,
         )
 
-        # Remove unwanted redaction log (case-insensitive) starting from "REDACTION LOG"
+        # Remove unwanted redaction log starting from "REDACTION LOG"
         # through the end of the document
         text = re.sub(
             r"REDACTION LOG.*",
@@ -471,16 +624,33 @@ class PdfTextExtraction:
         self, contours, min_area=100, min_width=100, min_height=50
     ):
         """
-        Get bounding boxes for the contours
+        Method to compute bounding boxes for contours.
+        Filter based on area, width, and height.
 
-        Parameters:
-            contours (list): List of contours to process.
-            min_area (int): Minimum area of a contour to be considered.
-            min_width (int): Minimum width of a bounding box.
-            min_height (int): Minimum height of a bounding box.
+        Parameters
+        ----------
+        contours : list
+            List of contours to process
+        min_area : int, optional
+            Minimum area of a contour to be considered a bounding box.
+        min_width : int, optional
+            Minimum width of a contour to be considered part of a bounding box.
+        min_height : int, optional
+            Minimum height of a contour to be considered part of a bounding box.
 
-        Returns:
-            List[tuple]: List of bounding boxes as (x1, y1, x2, y2).
+        Returns
+        -------
+        list of tuple
+            A list of bounding boxes, where each bounding box is represented as
+            a tuple (x1, y1, x2, y2), with:
+            - (x1, y1): Coordinates of the top-left corner of the bounding box.
+            - (x2, y2): Coordinates of the bottom-right corner of the box.
+
+        Notes
+        -----
+        - Bounding boxes are computed using OpenCV's `cv2.boundingRect` function
+        - Only contours with an area greater than `min_area` are considered.
+        - Bounding boxes must also exceed both `min_width` and `min_height`
         """
         boxes = []
         for contour in contours:
@@ -495,18 +665,43 @@ class PdfTextExtraction:
         self, template_boxes, form_boxes, form, output_folder, cad_id
     ):
         """
-        Extract the regions from the form based on the template
-        save the extracted text.
+        Extract regions from the form image based on template bounding boxes
+        and save extracted text.
 
-        Parameters:
-            template_boxes (list): List of bounding boxes from the template.
-            form_boxes (list): List of bounding boxes from the form.
-            form (np.array): Form image to extract regions from.
-            output_folder (str): Folder to save the extracted images and text.
-            cad_id (str): Identifier for the current file.
+        Parameters
+        ----------
+        template_boxes : list of tuple
+            List of bounding boxes represented as (x1, y1, x2, y2).
+        form_boxes : list of tuple
+            List of bounding boxes represented as (x1, y1, x2, y2).
+        form : numpy.ndarray
+            Grayscale image of the form from which regions will be extracted.
+        output_folder : str
+            Path to the folder where extracted images and text will be saved.
+        cad_id : str
+            Identifier for the current form file, used for naming output files.
 
-        Returns:
-            None
+        Returns
+        -------
+        None
+            Saves extracted region images and text files to the output folder.
+
+        Notes
+        -----
+        - The regions of `form_boxes` are matched with bounding boxes in
+        `template_boxes` based on proximity (within a tolerance of 100 pixels).
+        - Extracted regions are saved as PNG images in the `boxes`
+        subdirectory of `output_folder`.
+        - Text is extracted from each region using Tesseract OCR, cleaned, and
+        saved to a narrative text file.
+        - If found, the narrative section is identified by the keyword "NARRATIVE"
+
+        Side Effects
+        ------------
+        - Creates directories for saving extracted images and narrative text
+        - Does not handle duplicates well. If multiple boxes are close to each
+        other, the output will be posted to a separate directory with (n) in
+        the name.
         """
         box_count = 0
         officer_narrative = "UNKNOWN EVENTS"
@@ -547,12 +742,23 @@ class PdfTextExtraction:
         """
         Interpret the severity code from the extracted text.
 
-        Parameters:
-            severity_code (str): Severity code (1-5) extracted from the text.
+        Parameters
+        ----------
+        severity_code : str
+            Severity code extracted from the OH1 text.
 
-        Returns:
-            str: A string description of the severity.
+        Returns
+        -------
+        str
+            A string description corresponding to the severity code.
+
+        Notes
+        -----
+        - If the `severity_code` is not found in the mapping, the default value
+        returned is "UNKNOWN INJURY CAUSED BY".
+        - This function assumes the severity codes follow a numerical format.
         """
+
         severity_map = {
             "1": "FATAL INJURY CAUSED BY ",
             "2": "SERIOUS INJURY CAUSED BY ",
@@ -564,8 +770,78 @@ class PdfTextExtraction:
 
 
 class PreprocessGCAT:
+    """
+    A class to Preprocess preprocess the data for the GCAT model
 
-    # PreprocessGCAT class is used to preprocess the data for the GCAT model
+    This class handles the preprocessing of text data, including tokenization,
+    stemming, stopword removal, and TF-IDF vectorization. It also splits the
+    dataset into training and testing sets for model training and evaluation.
+
+        Parameters:
+            text_column(str): Name of the column containing the text data
+            label_column(str) = Name of the column containing the label data
+            test_size(float) = Ratio of the test set
+            train_size(float) = 1 - test_size (Ratio of the training set)
+            norm(str) = Normalization method
+            vocabulary(np.array) = Predefined vocabulary for the TF-IDF vectorizer
+            min_df(float) = Minimum document frequency ratio
+            max_df(float) = Maximum document frequency ratio
+            max_features(float) = Maximum number of features returned from TF-IDF vectorizer
+
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        The input DataFrame containing the text and label columns.
+    text_column : str
+        Name of the column containing the text data.
+    label_column : str
+        Name of the column containing the label data.
+    test_size : float, optional, default=0.2
+        Ratio of the test set size to the total dataset size.
+    norm : str, optional, default='l2'
+        Normalization method used by the TF-IDF vectorizer.
+    vocabulary : np.array, optional, default=None
+        Predefined vocabulary for the TF-IDF vectorizer. If None, the
+        vocabulary will be determined from the input data.
+    min_df : float, optional, default=0.05
+        Minimum document frequency ratio for terms to be included in the TF-IDF matrix.
+    max_df : float, optional, default=0.9
+        Maximum document frequency ratio for terms to be included in the TF-IDF matrix.
+    max_features : int, optional, default=500
+        Maximum number of features to retain in the TF-IDF matrix.
+
+    Attributes
+    ----------
+    ps : nltk.stem.PorterStemmer
+        Stemmer used for reducing words to their root form.
+    stopWords : set
+        Set of stopwords from the NLTK library.
+    charfilter : re.Pattern
+        Regular expression pattern to filter characters (alphabets only).
+    vec : sklearn.feature_extraction.text.TfidfVectorizer
+        TF-IDF vectorizer used for feature extraction from text data.
+    X_train : pandas.Series
+        Training set containing text data.
+    X_test : pandas.Series
+        Testing set containing text data.
+    y_train : pandas.Series
+        Training set containing labels.
+    y_test : pandas.Series
+        Testing set containing labels.
+
+    Notes
+    -----
+    - The dataset is split into training and testing sets using a fixed random seed.
+    - The training size is calculated as `1 - test_size`.
+    - The TF-IDF vectorizer applies tokenization, normalization, and
+    dimensionality reduction based on the provided or generated vocabulary.
+
+    Returns
+    -------
+    None
+        Prints the number of rows in the training and testing sets upon init.
+    """
 
     def __init__(
         self,
@@ -580,25 +856,9 @@ class PreprocessGCAT:
         max_features=500,
     ):
         """
-        Initiatize the class.
-        Define class variables
-        Define stemmer, stopwords, and character filter
-        Define TF-IDF vectorizer
-        Split the dataset into training and testing sets
+        Initialize the PreprocessGCAT class.
 
-        Parameters:
-            text_column(str): Name of the column containing the text data
-            label_column(str) = Name of the column containing the label data
-            test_size(float) = Ratio of the test set
-            train_size(float) = 1 - test_size (Ratio of the training set)
-            norm(str) = Normalization method
-            vocabulary(np.array) = Predefined vocabulary for the TF-IDF vectorizer
-            min_df(float) = Minimum document frequency ratio
-            max_df(float) = Maximum document frequency ratio
-            max_features(float) = Maximum number of features returned from TF-IDF vectorizer
-
-        Returns:
-            Prints the number of rows in the training and testing sets
+        See the class-level docstring for a description of parameters.
         """
 
         self.df = df
@@ -641,15 +901,20 @@ class PreprocessGCAT:
 
     def CCR_Tokenizer(self, text):
         """
-        Stem and tokenize raw text data.
+        Stem and tokenize raw text data, removing stopwords and
+        non-alphabetic tokens.
 
-        Parameters:
-            text(str): Raw text data to be tokenized
+        Parameters
+        ----------
+        text : str
+            Raw text data to be tokenized and processed.
 
-        Returns:
-            ntokens: List of tokens produced with tokenizer
+        Returns
+        -------
+        list of str
+            A list of processed tokens after stemming, stopword removal, and
+            filtering non-alphabetic tokens.
         """
-
         words = map(lambda word: word.lower(), nltk.word_tokenize(text))
         words = [word for word in words if word not in self.stopWords]
         tokens = list(map(lambda token: self.ps.stem(token), words))
@@ -660,15 +925,28 @@ class PreprocessGCAT:
 
     def fit_and_evaluate_tfidf_vector(self):
         """
-        Procedure to fit and evaluate the TF-IDF vectorizer
+        Fit and evaluate the TF-IDF vectorizer.
 
-        Parameters:
-            None
+        Parameters
+        ----------
+        None
 
-        Returns:
-            Prints summary statistics of the TF-IDF vectorizer
+        Returns
+        -------
+        None
+            Prints summary statistics of the fitted TF-IDF vectorizer.
+
+        Notes
+        -----
+        - The function fits the TF-IDF vectorizer to the training data
+        (`X_train`) and transforms the text data into a sparse matrix.
+        - It converts the sparse matrix to a dense format and computes the
+        following summary statistics:
+            - Number of features/terms in the vector.
+            - Minimum value of the TF-IDF matrix.
+            - Maximum value of the TF-IDF matrix.
+            - Percentiles (25th, 50th, 75th, and 95th) from the TF-IDF matrix.
         """
-
         X_tfidf = self.vec.fit_transform(self.X_train)
         X_tfidf_dense = X_tfidf.todense()
         X_tfidf_array = np.array(X_tfidf_dense)
@@ -680,32 +958,58 @@ class PreprocessGCAT:
 
     def create_doc_term_matrix(self):
         """
-        Create the document term matrix
+        Create the document-term matrix (DTM).
 
-        Parameters:
-            None
+        Parameters
+        ----------
+        None
 
-        Returns:
-            dtm(scipy.sparse._csr.csr_matrix): Document term matrix
+        Returns
+        -------
+        dtm : scipy.sparse._csr.csr_matrix
+            A sparse matrix representation of the document-term matrix.
+
+        Notes
+        -----
+        - This function uses `self.X_train`, which is expected as a pandas
+        Series or a list of text documents representing the training dataset.
+        - The TF-IDF vectorizer (`self.vec`) is used to transform the documents
+        into the matrix representation.
+        - The matrix represents the frequency or importance of terms within the
+        training dataset (`X_train`).
+        - Each row corresponds to a document and each col to a term or feature.
         """
-
         docs = list(self.X_train)
         dtm = self.vec.fit_transform(docs)
         return dtm
 
     def pca_analysis(self, dtm):
         """
-        Procedure to analyze the PCA of the document term matrix, plot
-        explained variance, return the ideal number of components.
+        Principal Component Analysis (PCA) on the document-term matrix (DTM) to
+        determine the number of components required to explain 95% of the
+        variance, and visualize the results.
 
-        Parameters:
-            dtm(scipy.sparse._csr.csr_matrix): Document term matrix
+        Parameters
+        ----------
+        dtm : scipy.sparse._csr.csr_matrix
+            The document-term matrix (DTM) to be analyzed.
 
-        Returns:
-            explained_var(list): List of explained variance ratios
-            components(int): Number of components to explain 95% variance
+        Returns
+        -------
+        explained_var : list of float
+            List of cumulative explained variance ratios for diff nbr of components.
+        components : int
+            The min nbr of principal components req to explain at least 95% of the variance.
+
+        Visualizations
+        --------------
+        1. A plot showing the proportion of explained variance against the nbr
+        of PCA components, with reference lines indicating 95% variance and the
+        optimal number of components.
+        2. A scatterplot of the first two PCA dimensions, with points colored
+        based on class labels.
         """
-
+        # Perform PCA on the DTM
         pca_temp = PCA().fit(dtm.toarray())
 
         # Calculate cumulative variance and components
@@ -762,6 +1066,43 @@ class PreprocessGCAT:
             balancer_eval(pd.DataFrame): DataFrame of evaluation
         """
 
+        """
+        Evaluate different class imbalance correction methods and compare their
+        performance across multiple models. Exploratory analysis of class
+        imbalance with a grid search before performing correction techniques.
+
+        Parameters
+        ----------
+        models : list of tuples
+            A list of model tuples where each tuple contains the
+            model name (str) and the corresponding model object
+            (e.g., `("Logistic Regression", LogisticRegression())`).
+        class_balancers : list
+            A list of class imbalance correction methods.
+        n_components : int, optional
+            The desired number of Principal Component Analysis (PCA) components
+            to retain in the pipeline.
+
+        Returns
+        -------
+        balancer_eval : pandas.DataFrame
+            A DataFrame with evaluation metrics for each combination of model
+            and class imbalance correction method.
+                - "Model": The name of the model.
+                - "Balancer": The name of the class imbalance correction method.
+                - "Confusion Matrix": The confusion matrix of the predictions.
+                - "Macro Avg Precision": The macro-averaged precision score.
+                - "Macro Avg Recall": The macro-averaged recall score.
+                - "Macro Avg F1": The macro-averaged F1 score.
+
+        Notes
+        -----
+        - For each combination of model and class balancer, the method builds a
+        pipeline that includes the vectorizer (`self.vec`), the class balancer,
+        PCA transformation, and the model.
+         - The method calculates confusion matrices and macro-averaged
+        classification metrics, storing them in a DataFrame for comparison.
+        """
         models = models
         class_balancers = class_balancers
         n_components = n_components
@@ -819,6 +1160,14 @@ class PreprocessGCAT:
 
 
 class GenBikeCleNarrative:
+    """
+    A class to generate BikeCLE narrative using Google AI services.
+
+    Attributes
+    ----------
+    google_api_key : str or None
+        The Google API key for accessing Google services. Defaults to None.
+    """
 
     def __init__(
         self,
@@ -829,30 +1178,42 @@ class GenBikeCleNarrative:
         genai.configure(api_key=os.environ[self.google_api_key])
 
         """
-        Initiatize the class.
-        Define Google API Key
+        This method adds the required Google API key as a class attribute for
+        accessing Google services within the methods.
+        The key is then used with the `genai` library.
 
-        Parameters:
-            google_api_key(str): Google API Key
+        Parameters
+        ----------
+        google_api_key : str or None
+            The Google API key used for authentication.
 
-        Returns:
-            None
+        Returns
+        -------
+        None
         """
 
     def summarize(self, concat_text=None, max_retries=5):
-
-        # concat_text = concat_text
-        # max_retries = max_retries
         """
-        Summarize the text using the GenAI model
+        Summarize the provided text using the GenAI model.
 
-        Parameters:
-            concat_text(str): Concatenated text of all detail of collision
+        Parameters
+        ----------
+        concat_text : str
+            Concatenation of CAD and OH1 text containing dets of the collision.
+        max_retries : int, optional
+            The maximum number of retry attempts in case of a failure due to
+            resource exhaustion. Default is 5.
 
-        Returns:
-            response.text(str): Summarized text
+        Returns
+        -------
+        str
+            The summarized text generated by the model.
+
+        Raises
+        ------
+        Exception
+            If the maximum number of retries is reached without successfully summarizing the text.
         """
-
         model = genai.GenerativeModel(
             "tunedModels/bikecleinputdf-4pk28onmojpn"
         )  # Fine-tuned Gemini model for bikecle input df
