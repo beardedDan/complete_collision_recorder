@@ -42,7 +42,7 @@ google-generativeai = ">=0.8.3"
 Flask = ">=3.0.3"
 spacy = ">=3.8.2"
 en-core-web-trf = {url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.5.0/en_core_web_trf-3.5.0-py3-none-any.whl"}
-
+tqdm = "^4.66.0"
 
 [tool.poetry.optional-dependencies]
 dev = [

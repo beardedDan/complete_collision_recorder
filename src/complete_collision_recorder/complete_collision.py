@@ -38,6 +38,7 @@ from sklearn.model_selection import train_test_split
 # Google Gemini GenAI
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from google.api_core.exceptions import ResourceExhausted, PermissionDenied
 from dotenv import load_dotenv
 
 
@@ -78,7 +79,7 @@ class PdfTextExtraction:
     AI Highlights
     ----------
     - AI Ethics and Privacy: Personal names are redacted in two passes:
-    - NLP Named Entity Recognition (NER) using AI functionality from SpaCy 
+    - NLP Named Entity Recognition (NER) using AI functionality from SpaCy
     - NLP NER using a statistical approach in the 'create_common_name_dataset'
     metehod using Social Security Administration (SSA) data.
     - Machine Vision Canny Edge Detection in the 'process_image' method
@@ -853,7 +854,7 @@ class PreprocessGCAT:
     - The dataset is split into training and testing sets using a fixed random seed.
     - The training size is calculated as `1 - test_size`.
     - The TF-IDF vectorizer applies tokenization, normalization, and
-    dimensionality reduction based on the provided or generated vocabulary.        
+    dimensionality reduction based on the provided or generated vocabulary.
     """
 
     def __init__(
@@ -1209,15 +1210,22 @@ class GenBikeCleNarrative:
         None
         """
 
-    def summarize(self, concat_text=None, max_retries=5):
+    def summarize(
+            self,
+            concat_text=None,
+            model_name=None,
+            max_retries=5
+            ):
         """
         Summarize the provided text using the Googles GenAI model that has been
         fine-tuned on BikeCLE narrative data.
 
         Parameters
         ----------
-        concat_text : str
+        concat_text : str, required
             Concatenation of CAD and OH1 text containing dets of the collision.
+        model_name : str, required
+            The name of the fine-tuned Gemini model for BikeCLE input data.
         max_retries : int, optional
             The maximum number of retry attempts in case of a failure due to
             resource exhaustion. Default is 5.
@@ -1233,7 +1241,7 @@ class GenBikeCleNarrative:
             If the maximum number of retries is reached without successfully summarizing the text.
         """
         model = genai.GenerativeModel(
-            "tunedModels/bikecleinputdf-4pk28onmojpn"
+            model_name
         )  # Fine-tuned Gemini model for bikecle input df
         #
 
@@ -1256,4 +1264,14 @@ class GenBikeCleNarrative:
                     f"Retrying in 15 seconds...\nError: {e}"
                 )
                 time.sleep(15)
-        raise Exception("Max retries reached. Unable to summarize.")
+
+            except PermissionDenied as e:
+                print(
+                    f"Permission Denied: 403 - Unable to access the tuned model '{model_name}'.\n"
+                    f"Note: {e}\nPlease verify your Google API key has been added."
+                    f"\nto the list of approved keys."
+                )
+                # Re-raise the exception to signal failure.
+                raise
+                    
+        raise Exception("Unable to summarize. Either max retries reached or the API key has not been added to the project.")

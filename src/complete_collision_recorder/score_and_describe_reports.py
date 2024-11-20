@@ -85,7 +85,10 @@ else:
 # Step 10: Create Narratives of Collisions using GeminiBikeCleModel
 GeminiBikeCleModel = cc.GenBikeCleNarrative(google_api_key="CCR_API")
 GCAT_pred_df["GenAISummary"] = GCAT_pred_df["concatenated_text"].apply(
-    lambda x: GeminiBikeCleModel.summarize(x)
+    lambda x: GeminiBikeCleModel.summarize(
+        concat_text=x,
+        model_name="tunedModels/narrativetrainingdf-oo49g0etpnrj",
+    )
 )
 
 # Step 11: Output to GenAI_df.csv
