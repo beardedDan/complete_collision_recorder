@@ -77,6 +77,7 @@ class PdfTextExtraction:
 
     AI Highlights
     ----------
+    - AI Ethics and Privacy: Personal names are redacted in two passes:
     - NLP Named Entity Recognition (NER) using AI functionality from SpaCy 
     - NLP NER using a statistical approach in the 'create_common_name_dataset'
     metehod using Social Security Administration (SSA) data.
