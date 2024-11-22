@@ -1247,13 +1247,17 @@ class GenBikeCleNarrative:
 
         retries = 0
 
+        # Turn off safety settings for Gemini 
+        safety_settings = {
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        }        
+
         for attempt in range(max_retries):
             try:
                 response = model.generate_content(
                     [concat_text],
-                    safety_settings={
-                        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                    },
+                    safety_settings=safety_settings,
                 )
                 return response.text
 
