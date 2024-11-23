@@ -37,22 +37,36 @@ system_design_and functional_nonfunctional_requirements.md
 complete_collision_recorder/
 │
 ├── data/                   # Git ignored - Directory for storing data files
+|   ├── lookup/             # Git ignored - Lookup files for SSA and GIS functions
 │   ├── raw/                # Git ignored - Raw data files
 │   └── processed/          # Git ignored - Processed data ready for analysis
 │
 ├── notebooks/              # Jupyter notebooks for analysis
-│   └── dev_20240909.ipynb  # Initial dev notebook
+│   ├── analysis_compare_to_OSTATS.ipynb
+│   ├── import_CAD_OH1_PDFs.ipynb.ipynb
+│   ├── import_Combine_Index_Files.ipynb
+│   ├── import_Download_File_IDs_in_Index.ipynb
+│   ├── score_bikeCLE_Gemini.ipynb
+│   ├── score_GCAT.ipynb
+│   ├── train_and_evaluate_bikeCLE_Gemini.ipynb
+│   └── train_GCAT_severity.ipynb
+|
+├── models/                 # Jupyter notebooks for analysis
+│   ├── severity.pkl        # Pickle model for GCAT severity prediction
+│   └── BikeCLE_narrative_fine_tune_training_results.png  #Screenshot of Gemini results
 │
 ├── src/                    # Source code (Python scripts and modules)
-│   ├── __init__.py         # Marks this folder as a package
-│   ├── main.py             # CLI entry point
-│   ├── utils.py            # Utility functions for general use
-│   └── complete_collision.py # Project-specific logic and functions
+│   ├── complete_collision_recorder  # Package folder
+│   └── ├── __init__.py         # Marks this folder as a package
+│       ├── __main__.py         # CLI entry point
+|       ├── app.py              # Program to start webpage service
+│       ├── utils.py            # Utility functions for general use
+|       ├── assemble_text.py
+|       ├── extract_and_ingest_text_from_cad_pdf.py
+|       ├── extract_and_ingest_text_from_oh1_pdf.py
+|       ├── score_and_describe_reports.py
+│       └── complete_collision.py # Project-specific module
 │
-├── tests/                  # Unit tests for the project
-│   ├── test_utils.py       # Tests for utility functions
-│   └── test_complete_collision.py # Tests for project-specific functions
-|
 ├── docs/                   # Project specific documentation
 │
 ├── README.md               # Project overview and documentation
